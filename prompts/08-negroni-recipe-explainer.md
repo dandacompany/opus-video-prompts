@@ -1,23 +1,25 @@
-# 鸡尾酒配方动态图解（Negroni）
+# 네그로니 칵테일 레시피 애니메이션
 
-- **作者**：Rory Flynn (@Ror_Fly)
-- **原帖 / 来源**：https://x.com/Ror_Fly/status/2102853258582880547
-- **分组**：2.2 带结构的讲解与营销片模板
+- **작성자:** Rory Flynn (@Ror_Fly)
+- **원문 출처:** https://x.com/Ror_Fly/status/2102853258582880547
+- **유형:** 참고 이미지
 
-## 说明
+## 사례 설명
 
-只给了 1 张参考图。成片有步骤计数器、ml/oz 用量、进度条，最后以“THAT'S A NEGRONI / 1:1:1”收尾。
+참고 이미지 한 장을 제공했다. 완성 영상에는 단계 표시, ml/oz 용량, 진행 막대가 나온다.
 
-## 提示词（提示词原文）
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
-We're going to try a little test. Do you think you could render a recipe motion graphic animation using javascript or html (w/e you think will produce the best) to show the full recipe from start to finish (empty glass to completed cocktail) - Explainer video style - Showing the recipe ingreidents + measurements as they're going into the cup. Should be a 30s video.
+작은 실험을 해 보자. JavaScript나 HTML 중 결과가 좋은 방법을 골라 레시피 설명형 모션 그래픽을 만들어 줄 수 있을까? 빈 잔에서 완성된 칵테일까지 전 과정을 보여 줘. 재료를 잔에 넣는 순간마다 재료명과 계량값을 표시하고, 전체 길이는 30초로 해 줘.
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

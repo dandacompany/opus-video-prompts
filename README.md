@@ -1,527 +1,544 @@
 <div align="center">
 
-# Opus 5.5 Video Prompts
+# Opus 5.5 영상 제작 프롬프트
 
-**Claude Opus 5.5 “用代码拍视频”：全网案例与可直接复制的提示词**
+**Claude Opus 5.5로 코드를 작성해 영상을 만드는 공개 사례와 한국어 프롬프트 모음**
 
-18 份完整提示词 · 54 个公开案例 · 9 种技术路线 · 持续更新
+프롬프트 18개 · 공개 사례 54건 · 제작 방식 9가지
 
-[提示词速查](#-提示词速查) · [精选提示词](#-精选提示词) · [案例总览](#-案例总览) · [写法经验](#-写法经验) · [资料来源](#-资料来源)
+[빠른 시작](#빠른-시작) · [프롬프트 목록](#프롬프트-목록) · [사례 목록](#사례-목록) · [작성 요령](#프롬프트-작성-요령) · [출처](#출처)
 
 </div>
 
----
+## 이 저장소는 무엇인가
 
-## 这是什么
+Opus 5.5는 영상 파일을 직접 출력하는 모델이 아니다. HTML Canvas, p5.js, Three.js, Remotion, Manim, Blender 등의 코드를 작성해 장면을 만든다. 브라우저에서 프레임을 캡처하고 FFmpeg로 MP4를 합성할 수 있다. 음악에는 Web Audio나 Python 합성을, 내레이션에는 TTS를 사용할 수 있다.
 
-Opus 5.5 本身**不输出视频文件**。它的做法是写代码画出每一帧：HTML Canvas、p5.js、Three.js、Remotion、Manim、Blender 脚本都有人用。然后用无头浏览器逐帧截图，再用 FFmpeg 合成 MP4；配乐一般用 Web Audio 或 Python 合成，旁白接 TTS。
+이 방식은 모션 그래픽, 선화·수묵 애니메이션, 설명 영상, 제품 출시 영상, 가사 뮤직비디오에 잘 맞는다. 사실적인 인물 영상이 필요하면 Seedance, Runway, Higgsfield 같은 영상 모델을 호출해 생성된 영상을 편집하는 흐름도 있다.
 
-所以它擅长**动态图形、手绘/线稿/水墨动画、科普讲解、产品发布片、歌词 MV**，不擅长写实的真人镜头。真要写实画面，常见做法是让它调用 Seedance、Runway、Higgsfield 这类视频模型，自己负责编排和剪辑。
+이 저장소는 Opus 5.5 공개 첫 주(2026년 9월 22~25일)에 X, Bilibili, Linux.do, GitHub, YouMind 등에 올라온 공개 사례를 정리했다. **프롬프트는 한국어 번역·현지화본**이며, 작성자와 원문 링크를 각 파일에 표기했다. 일부 원문은 발췌되거나 재게시 과정에서 잘렸으므로 해당 파일에 그 사실을 명시했다. 사례의 시간과 비용은 게시자가 밝힌 수치이며 동일한 결과를 보장하지 않는다.
 
-本仓库整理了 Opus 5.5 发布后第一周（2026-09-22 至 09-25）X、B 站、Linux.do、GitHub、YouMind 等处公开的案例，**只收作者本人公开的提示词原文**，每条都附原帖链接。
+## 빠른 시작
 
-## ⚡ 三分钟上手
+1. Claude Code를 설치하고 Opus 5.5를 선택한다. 추론 강도는 high 이상으로 설정한다.
+2. 영상 렌더링에 필요한 Node.js, Chrome, FFmpeg를 준비한다.
+3. 빈 폴더에서 아래 프롬프트 하나를 복사하고, 필요한 입력값과 자산을 제공한다.
+4. 생성된 코드와 시범 프레임을 확인한 뒤 MP4로 렌더링한다.
 
-```text
-1. 装好 Claude Code，模型切到 Opus 5.5，effort 调到 high / xhigh
-2. 本机准备 Node.js、Chrome、FFmpeg（渲染 MP4 用）
-3. 新建空目录，从下面挑一条提示词粘进去
-4. 等它写代码、渲染、自检，拿到 MP4
-```
-
-最短的测试提示词（Deedy 用它做出了发布片，作者说约 1 分钟、2 美元）：
+가장 짧은 예시는 [추론 스타트업 출시 영상](prompts/01-inference-startup-launch.md)이다.
 
 ```text
-make a modern slick and punchy video for a modern startup that works on inference
+현대적인 추론 기술 스타트업을 위한 세련되고 강렬한 출시 영상을 만들어 줘.
 ```
 
-中文用户可以直接试这条（WY）：
+## 프롬프트 목록
 
-```text
-做一个动画，快速回顾中华五千年的历史。风格轻松有趣，动画格式为线稿，添加合适的音乐，请务必做到引人入胜
-```
+| 번호 | 프롬프트 | 작성자 | 유형 | 파일 |
+|---:|---|---|---|---|
+| 01 | 추론 스타트업 출시 영상 | Deedy (@deedydas) | 한 문장 | [열기](prompts/01-inference-startup-launch.md) |
+| 02 | 15초 모션 디자인 쇼릴 | Stephan Livera | 한 문장 | [열기](prompts/02-motion-showreel-15s.md) |
+| 03 | 중국 5천 년 역사 요약: 선화 애니메이션 | WY (@akokoi1) | 한 문장 | [열기](prompts/03-china-5000-years-lineart.md) |
+| 04 | Opus 5 광고: 애플 《1984》 오마주 | 1LittleCoder (YouMind 수록) | 한 문장 | [열기](prompts/04-opus-1984-ad.md) |
+| 05 | Transformer를 설명하는 JavaScript 영상 | 바오위 (YouMind 수록) | 한 문장 | [열기](prompts/05-transformer-explainer-js.md) |
+| 06 | 방에서 쿼크까지 확대하는 영상 | Taelin (YouMind의 중국어 요약을 바탕으로 번역) | 한 문장 | [열기](prompts/06-room-to-quarks-zoom.md) |
+| 07 | 30초 기업 설명 영상 템플릿 | Alex Prompter (@alex_prompter) | 구조화 템플릿 | [열기](prompts/07-business-explainer-30s.md) |
+| 08 | 네그로니 칵테일 레시피 애니메이션 | Rory Flynn (@Ror_Fly) | 참고 이미지 | [열기](prompts/08-negroni-recipe-explainer.md) |
+| 09 | 대기 대순환 설명: TTS와 이중 자막 | WY (@akokoi1) | 중국어 원문 번역 | [열기](prompts/09-atmospheric-circulation-tts.md) |
+| 10 | 실사 설명 영상을 선화 애니메이션으로 변환 | Axton (@AxtonLiu) | 중국어 원문 번역 | [열기](prompts/10-talking-head-to-lineart.md) |
+| 11 | 아우스터리츠 전투 역사 영화 | Winter (@WinterArc2125) | 장문 프롬프트 | [열기](prompts/11-austerlitz-film.md) |
+| 12 | Remotion 앱 홍보 영상 1 | Danny Stuart | Remotion | [열기](prompts/12-remotion-app-promo-1.md) |
+| 13 | Remotion 앱 홍보 영상 2 | Danny Stuart | Remotion | [열기](prompts/13-remotion-app-promo-2.md) |
+| 14 | 실제 자산을 사용하는 SaaS 출시 영상 | Joe Davies (LinkedIn) | 브랜드 영상 | [열기](prompts/14-saas-launch-real-assets.md) |
+| 15 | UI 변형 무한 반복 영상 | zero (@twoclipping) | 전문 템플릿 | [열기](prompts/15-ui-morph-loop.md) |
+| 16 | 고급 미니멀 제품 영상 | zero (@twoclipping) | 전문 템플릿 | [열기](prompts/16-high-end-product-video.md) |
+| 17 | 주문을 시전하는 픽셀 마법사 | Majid Manzarpour | 상세 사양 | [열기](prompts/17-pixel-wizard.md) |
+| 18 | 상호작용하는 선사 시대 섬 | Vib3Coded | 상세 사양 | [열기](prompts/18-prehistoric-island-threejs.md) |
 
-## 📋 提示词速查
+이 외에 긴 프롬프트 두 개는 원문 링크로 소개한다. [무지개 길 픽셀 달리기](https://x.com/riku720720/status/2102515058010132554)는 일본어 상세 사양이며, [Claude Pop 혼합 제작 뮤직비디오](https://x.com/donaldjewkes/status/2102801469976248500)는 fal 이미지 → Seedance 2.5 영상 → JavaScript 프레임별 재그리기 순서다.
 
-| # | 提示词 | 作者 | 类型 | 文件 |
-|---|---|---|---|---|
-| 01 | 推理创业公司发布视频 | Deedy (@deedydas) | 一句话 | [打开](prompts/01-inference-startup-launch.md) |
-| 02 | 15 秒动态设计作品集（Max effort） | Stephan Livera | 一句话 | [打开](prompts/02-motion-showreel-15s.md) |
-| 03 | 中华五千年历史速览（线稿动画） | WY (@akokoi1) | 一句话 · 中文 | [打开](prompts/03-china-5000-years-lineart.md) |
-| 04 | 一个 30 秒的 Opus 5 广告（致敬苹果《1984》） | 1LittleCoder（据 YouMind 收录） | 一句话 | [打开](prompts/04-opus-1984-ad.md) |
-| 05 | 讲解 Transformer 的 JS 视频 | 宝玉（据 YouMind 收录） | 一句话 · 中文 | [打开](prompts/05-transformer-explainer-js.md) |
-| 06 | 从房间一路放大到夸克 | Taelin（据 YouMind 收录，英文原文的中文转述） | 一句话 | [打开](prompts/06-room-to-quarks-zoom.md) |
-| 07 | 30 秒企业讲解片模板 | Alex Prompter (@alex_prompter) | 模板 · 填空 | [打开](prompts/07-business-explainer-30s.md) |
-| 08 | 鸡尾酒配方动态图解（Negroni） | Rory Flynn (@Ror_Fly) | 参考图 | [打开](prompts/08-negroni-recipe-explainer.md) |
-| 09 | 大气环流科普（带 TTS 旁白与双语字幕） | WY (@akokoi1) | 中文 · TTS | [打开](prompts/09-atmospheric-circulation-tts.md) |
-| 10 | 真人口播改成线稿动画讲解 | Axton (@AxtonLiu) | 中文 · 改编已有视频 | [打开](prompts/10-talking-head-to-lineart.md) |
-| 11 | 奥斯特里茨战役历史电影（4 到 5 分钟） | Winter (@WinterArc2125) | 长提示词 · 参考图 | [打开](prompts/11-austerlitz-film.md) |
-| 12 | App 宣传片（Remotion，第 1 支） | Danny Stuart | Remotion | [打开](prompts/12-remotion-app-promo-1.md) |
-| 13 | App 宣传片（Remotion，第 2 支） | Danny Stuart | Remotion | [打开](prompts/13-remotion-app-promo-2.md) |
-| 14 | SaaS 发布片（抓真实素材） | Joe Davies（LinkedIn） | 品牌 · 网络素材 | [打开](prompts/14-saas-launch-real-assets.md) |
-| 15 | UI 形态变换循环（1440×1440） | zero (@twoclipping) | 专业模板 | [打开](prompts/15-ui-morph-loop.md) |
-| 16 | 高端极简产品片（1920×1080，接入真实素材） | zero (@twoclipping) | 专业模板 · 真实素材 | [打开](prompts/16-high-end-product-video.md) |
-| 17 | 像素巫师施法动画 | Majid Manzarpour | 规格型 | [打开](prompts/17-pixel-wizard.md) |
-| 18 | 交互式史前岛屿（Three.js） | Vib3Coded | 规格型 · 3D | [打开](prompts/18-prehistoric-island-threejs.md) |
+## 한국어 프롬프트
 
-另有两份超长提示词只给要点和原帖链接：Rikuo 的[彩虹路像素跑酷](https://x.com/riku720720/status/2102515058010132554)（日文，约 3000 字），donald 的 [Claude Pop 混合流程 MV](https://x.com/donaldjewkes/status/2102801469976248500)（约 2000 词，流程是 fal 出角色图 → Seedance 2.5 生成底片 → JS 逐帧重绘）。
+아래 프롬프트는 공개된 원문 또는 인용된 발췌본을 한국어로 옮긴 것이다. 한국어 사용에 맞춰 자막과 인터페이스 언어를 바꾼 항목도 있다. 정확한 표현과 누락 여부를 확인하려면 원문 링크를 연다. 대괄호와 `<inputs>`는 사용자가 채워야 하는 항목이다.
 
-## ✨ 精选提示词
+### 01. 추론 스타트업 출시 영상
 
-短提示词直接展开，长提示词折叠了，点开即可复制。
-
-### 2.1 一句话即可出片
-
-#### 01. 推理创业公司发布视频
-
-作者：Deedy (@deedydas) · [原帖](https://x.com/deedydas/status/2102787937482252537) · [单独文件](prompts/01-inference-startup-launch.md)
-
-作者称 1 分钟、约 2 美元做完。只有一句话，没有指定任何工具。
-
-```text
-make a modern slick and punchy video for a modern startup that works on inference
-```
-
-#### 02. 15 秒动态设计作品集（Max effort）
-
-作者：Stephan Livera · [原帖](https://x.com/stephanlivera/status/2103315922098470926) · [单独文件](prompts/02-motion-showreel-15s.md)
-
-effort 调到 Max，让模型自由发挥。
-
-```text
-make a dynamic 15-second motion graphics video that shows what an incredible motion designer you are, like it's your showreel for a résumé. go all out.
-```
-
-#### 03. 中华五千年历史速览（线稿动画）
-
-作者：WY (@akokoi1) · [原帖](https://x.com/akokoi1/status/2102584165220962502) · [单独文件](prompts/03-china-5000-years-lineart.md)
-
-作者表示提示词“只有一句”。
-
-```text
-做一个动画，快速回顾中华五千年的历史。风格轻松有趣，动画格式为线稿，添加合适的音乐，请务必做到引人入胜
-```
-
-#### 04. 一个 30 秒的 Opus 5 广告（致敬苹果《1984》）
-
-作者：1LittleCoder（据 YouMind 收录） · [原帖](https://youmind.com/opus-5-5-prompts) · [单独文件](prompts/04-opus-1984-ad.md)
-
-YouMind 只收录了开头一句，完整原文以原帖为准。
-
-```text
-create a 30 second ad for Opus 5
-```
-
-#### 05. 讲解 Transformer 的 JS 视频
-
-作者：宝玉（据 YouMind 收录） · [原帖](https://youmind.com/opus-5-5-prompts) · [单独文件](prompts/05-transformer-explainer-js.md)
-
-```text
-帮我用 JS 做一个视频，主题是：什么是 Transformer
-```
-
-#### 06. 从房间一路放大到夸克
-
-作者：Taelin（据 YouMind 收录，英文原文的中文转述） · [原帖](https://youmind.com/opus-5-5-prompts) · [单独文件](prompts/06-room-to-quarks-zoom.md)
-
-```text
-做一段动画：从一个房间开始，镜头推进到一台 MacBook，再进入 Apple M4 芯片，然后到原子，最后到夸克
-```
-
-### 2.2 带结构的讲解与营销片模板
-
-#### 07. 30 秒企业讲解片模板
-
-作者：Alex Prompter (@alex_prompter) · [原帖](https://x.com/alex_prompter/status/2103499977632997524) · [单独文件](prompts/07-business-explainer-30s.md)
-
-作者建议：Claude 会在对话里直接播放，录屏即得视频；之后一次只提一条修改意见，例如“慢一点”“更有活力”“加一个讲价格的场景”。
-
-```text
-Adopt the role of an expert motion designer. Build a 30-second animated explainer for my business as a single HTML page. 5 scenes. The customer's problem, what I do, how it works in 3 steps, one proof point, and my name at the end. Bold text, smooth transitions, my brand colours. My business [DESCRIBE WHAT YOU SELL, WHO IT'S FOR AND YOUR COLOURS]
-```
-
-#### 08. 鸡尾酒配方动态图解（Negroni）
-
-作者：Rory Flynn (@Ror_Fly) · [原帖](https://x.com/Ror_Fly/status/2102853258582880547) · [单独文件](prompts/08-negroni-recipe-explainer.md)
-
-只给了 1 张参考图。成片有步骤计数器、ml/oz 用量、进度条，最后以“THAT'S A NEGRONI / 1:1:1”收尾。
-
-```text
-We're going to try a little test. Do you think you could render a recipe motion graphic animation using javascript or html (w/e you think will produce the best) to show the full recipe from start to finish (empty glass to completed cocktail) - Explainer video style - Showing the recipe ingreidents + measurements as they're going into the cup. Should be a 30s video.
-```
-
-#### 09. 大气环流科普（带 TTS 旁白与双语字幕）
-
-作者：WY (@akokoi1) · [原帖](https://x.com/akokoi1/status/2102606609574941028) · [单独文件](prompts/09-atmospheric-circulation-tts.md)
-
-用时 26 分钟，生成近 5 分钟视频。准备步骤：把 TTS 厂商（豆包、智谱、海螺、千问等均可）的文本转语音文档存为 TTS.md，在 .env 里写 API KEY 和音色。安全提示：在 .claude/settings.json 加 `"deny": ["Read(./.env)"]`，Claude 就读不到 key。同一提示词把知识点换成具体题目，就能做成物理竞赛题讲解。
-
-```text
-做一个动画，讲解高中地理知识点“大气环流”。风格轻松有趣，动画格式为线稿，添加合适的音乐，请务必做到引人入胜，字幕用中英双语，解说用TTS，如果 TTS 接口有关闭水印的参数就关掉，文档在TTS.md，API KEY 和音色分别是 .env 里的 APIKEY 和 VOICE，最终视频要能直接导出。
-```
-
-#### 10. 真人口播改成线稿动画讲解
-
-作者：Axton (@AxtonLiu) · [原帖](https://x.com/AxtonLiu/status/2102827887732932956) · [单独文件](prompts/10-talking-head-to-lineart.md)
-
-条件：干净的 Claude Code、safe mode、effort high，不加载任何 Skill，也不给外部素材。按字幕切了约 30 个镜头，用时 28 分 53 秒，全程没有人工介入。
-
-```text
-把 short-1.mp4 做成一条新的竖屏短片 short-1-v5.mp4：
-
-1. 我的人像缩小成右下角的圆形画中画，能看清我在讲话，不遮字幕。
-2. 主画面换成一段动画 B-roll，跟着我讲的内容走：我说到哪个概念，画面就画哪个概念。风格轻松有趣，线稿动画就可以，不要写实。
-3. 原声、原字幕、时长都不变。
-```
-
-#### 11. 奥斯特里茨战役历史电影（4 到 5 分钟）
-
-作者：Winter (@WinterArc2125) · [原帖](https://x.com/WinterArc2125/status/2103116689944502720) · [单独文件](prompts/11-austerlitz-film.md)
-
-附了几幅战争油画作为视觉参考。开源仓库：[Battle-of-Austerlitz-Film](https://github.com/WinterArc21/Battle-of-Austerlitz-Film)，包含 WebGL 渲染器、地形数据、Kokoro 旁白、合成音效，以及 Chromium 到 FFmpeg 的渲染流程。
+[원문](https://x.com/deedydas/status/2102787937482252537) · [설명과 사용 방법](prompts/01-inference-startup-launch.md)
 
 <details>
-<summary>展开提示词（847 字符）</summary>
+<summary>한국어 프롬프트 펼치기</summary>
 
 ```text
-Create a 4–5 minute cinematic video about the Battle of Austerlitz (1805), built entirely in code.
-
-Research the battle thoroughly and decide for yourself how to tell the story, structure the pacing, explain the strategy, and visualize the events. I want it to be historically accurate, dramatic, easy to understand, and visually exceptional.
-
-Use the attached paintings as visual inspiration, not a strict style requirement. I love their scale, atmosphere, smoke, dramatic skies, cavalry, massed formations, landscape, and sense of chaos. Find a way to translate that feeling into code — but if you can invent a stronger visual language, do it.
-
-Don't make it feel like a generic infographic or strategy game. It should feel like a cinematic historical film that happens to be rendered with code.
-
-You have complete creative control. Surprise me.
+현대적인 추론 기술 스타트업을 위한 세련되고 강렬한 출시 영상을 만들어 줘.
 ```
 
 </details>
 
-### 2.3 SaaS/产品宣传片
+### 02. 15초 모션 디자인 쇼릴
 
-#### 12. App 宣传片（Remotion，第 1 支）
-
-作者：Danny Stuart · [原帖](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video) · [单独文件](prompts/12-remotion-app-promo-1.md)
-
-每支大约 10 分钟。作者的经验：先出分镜再写代码，之后可以针对单个镜头修改；描述质量时，给参考视频比堆形容词有效；用“dramatic cuts”“orbiting camera”这类镜头语言。草稿阶段关掉动态模糊、用半分辨率，或直接在 Remotion Studio 里拖动预览。
-
-```text
-I want you to create a promotional video in an app/saas style. It will be to promote a fictional app that helps designers have a visual tool to manage Git... It must be 10-15 seconds long. Use dramatic cuts and kinetic typography. Dynamic apple style video... Light style/theme... Storyboard the video and plan carefully before coding anything.
-```
-
-#### 13. App 宣传片（Remotion，第 2 支）
-
-作者：Danny Stuart · [原帖](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video) · [单独文件](prompts/13-remotion-app-promo-2.md)
-
-```text
-I want to create a similar promo video to the level of quality that we created the twig promo video... Glass Materials which is part of the Vanta Supply family... It must be 15 seconds long. Use dramatic cuts and kinetic typography... dark style with grainey gradients... Storyboard the video and plan carefully before coding anything.
-```
-
-#### 14. SaaS 发布片（抓真实素材）
-
-作者：Joe Davies（LinkedIn） · [原帖](https://community.startuptalky.com/discussions/post/opus-5-5-is-very-good-at-creating-videos-this-is-the-prompt-i-used-i-f6nYoYyvteUj6bd) · [单独文件](prompts/14-saas-launch-real-assets.md)
-
-转载页面的原文在结尾处被截断。
-
-```text
-I want you to create a highly professional SaaS style product launch video for fatjoe.com/grow. Go and find some SaaS, preferably just one that people know, so it's easier to identify with it. Pick that, and then make sure to get actual assets and images and all of that stuff from the internet. Turn it into these typical, very professionally edited, motion-graphics-styled product launch videos that you see people making on Twitter when they launch new SaaS products (which are showing off the features, the benefits, and all of these things). Use fatjoe branding like …
-```
-
-### 2.4 专业级 Motion Design 模板（@zero）
-
-#### 15. UI 形态变换循环（1440×1440）
-
-作者：zero (@twoclipping) · [原帖](https://x.com/twoclipping/status/2103273003555402193) · [单独文件](prompts/15-ui-morph-loop.md)
+[원문](https://x.com/stephanlivera/status/2103315922098470926) · [설명과 사용 방법](prompts/02-motion-showreel-15s.md)
 
 <details>
-<summary>展开提示词（2711 字符）</summary>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+15초짜리 역동적인 모션 그래픽 영상을 만들어 줘. 뛰어난 모션 디자이너의 이력서용 쇼릴처럼 실력을 마음껏 보여 줘.
+```
+
+</details>
+
+### 03. 중국 5천 년 역사 요약: 선화 애니메이션
+
+[원문](https://x.com/akokoi1/status/2102584165220962502) · [설명과 사용 방법](prompts/03-china-5000-years-lineart.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+중국 5천 년 역사를 빠르게 되짚는 애니메이션을 만들어 줘. 가볍고 재미있는 선화 스타일로 그리고, 어울리는 음악을 넣어 몰입감 있게 완성해 줘.
+```
+
+</details>
+
+### 04. Opus 5 광고: 애플 《1984》 오마주
+
+[원문](https://youmind.com/opus-5-5-prompts) · [설명과 사용 방법](prompts/04-opus-1984-ad.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+Opus 5를 위한 30초 광고를 만들어 줘.
+```
+
+</details>
+
+### 05. Transformer를 설명하는 JavaScript 영상
+
+[원문](https://youmind.com/opus-5-5-prompts) · [설명과 사용 방법](prompts/05-transformer-explainer-js.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+JavaScript로 「Transformer란 무엇인가」를 설명하는 영상을 만들어 줘.
+```
+
+</details>
+
+### 06. 방에서 쿼크까지 확대하는 영상
+
+[원문](https://youmind.com/opus-5-5-prompts) · [설명과 사용 방법](prompts/06-room-to-quarks-zoom.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+방에서 시작해 MacBook으로, 이어서 Apple M4 칩과 원자를 거쳐 마지막에는 쿼크까지 들어가는 애니메이션을 만들어 줘.
+```
+
+</details>
+
+### 07. 30초 기업 설명 영상 템플릿
+
+[원문](https://x.com/alex_prompter/status/2103499977632997524) · [설명과 사용 방법](prompts/07-business-explainer-30s.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+모션 디자이너 전문가의 역할을 맡아 줘. 내 사업을 설명하는 30초 애니메이션을 단일 HTML 페이지로 만들어 줘. 장면은 5개다. 고객의 문제, 내가 제공하는 것, 3단계 작동 방식, 신뢰할 만한 근거 하나, 마지막으로 내 이름을 보여 줘. 굵은 글자, 부드러운 전환, 내 브랜드 색상을 사용해 줘. 내 사업: [판매하는 것, 대상 고객, 브랜드 색상을 설명]
+```
+
+</details>
+
+### 08. 네그로니 칵테일 레시피 애니메이션
+
+[원문](https://x.com/Ror_Fly/status/2102853258582880547) · [설명과 사용 방법](prompts/08-negroni-recipe-explainer.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+작은 실험을 해 보자. JavaScript나 HTML 중 결과가 좋은 방법을 골라 레시피 설명형 모션 그래픽을 만들어 줄 수 있을까? 빈 잔에서 완성된 칵테일까지 전 과정을 보여 줘. 재료를 잔에 넣는 순간마다 재료명과 계량값을 표시하고, 전체 길이는 30초로 해 줘.
+```
+
+</details>
+
+### 09. 대기 대순환 설명: TTS와 이중 자막
+
+[원문](https://x.com/akokoi1/status/2102606609574941028) · [설명과 사용 방법](prompts/09-atmospheric-circulation-tts.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+고등학교 지리 개념인 「대기 대순환」을 설명하는 애니메이션을 만들어 줘. 가볍고 재미있는 선화 스타일로 그리고 알맞은 음악을 넣어 몰입감 있게 완성해 줘. 자막은 한국어와 영어를 함께 넣고, 해설은 TTS로 만들어 줘. TTS API에 워터마크를 끄는 옵션이 있으면 사용해 줘. 문서는 TTS.md에 있고, API 키와 음성 설정은 각각 .env의 APIKEY와 VOICE에 있어. 완성 영상은 바로 내보낼 수 있어야 해.
+```
+
+</details>
+
+### 10. 실사 설명 영상을 선화 애니메이션으로 변환
+
+[원문](https://x.com/AxtonLiu/status/2102827887732932956) · [설명과 사용 방법](prompts/10-talking-head-to-lineart.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+short-1.mp4를 새 세로형 짧은 영상 short-1-v5.mp4로 만들어 줘.
+
+1. 내 얼굴 영상은 오른쪽 아래의 작은 원형 화면 속 화면으로 배치해 줘. 말하는 모습이 보이되 자막은 가리지 마.
+2. 본 화면은 설명 내용에 맞는 애니메이션 B롤로 바꿔 줘. 내가 어떤 개념을 말하면 그 개념을 화면에 그려 줘. 가볍고 재미있는 선화 스타일로 만들고 실사처럼 만들지 마.
+3. 원본 음성, 자막, 영상 길이는 그대로 유지해 줘.
+```
+
+</details>
+
+### 11. 아우스터리츠 전투 역사 영화
+
+[원문](https://x.com/WinterArc2125/status/2103116689944502720) · [설명과 사용 방법](prompts/11-austerlitz-film.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+코드만으로 1805년 아우스터리츠 전투를 다룬 4~5분짜리 영화 같은 영상을 만들어 줘.
+
+전투를 충분히 조사한 뒤 이야기 방식, 전개 속도, 전략 설명, 사건의 시각화를 스스로 결정해 줘. 역사적으로 정확하고 극적이며 이해하기 쉽고 시각적으로 뛰어나야 해.
+
+첨부한 그림은 엄격한 스타일 지침이 아니라 시각적 영감으로 사용해 줘. 웅장한 규모, 분위기, 연기, 극적인 하늘, 기병대, 밀집 대형, 풍경, 혼돈이 마음에 들어. 그 느낌을 코드로 표현하되 더 강력한 시각 언어를 생각해 낼 수 있다면 그렇게 해 줘.
+
+흔한 인포그래픽이나 전략 게임처럼 보이지 않게 해 줘. 코드로 렌더링했지만 역사 영화처럼 느껴져야 해.
+
+창작 방향은 전적으로 맡길게. 놀라게 해 줘.
+```
+
+</details>
+
+### 12. Remotion 앱 홍보 영상 1
+
+[원문](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video) · [설명과 사용 방법](prompts/12-remotion-app-promo-1.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+가상의 디자이너용 Git 시각 관리 앱을 홍보하는 앱/SaaS 스타일 영상을 만들어 줘. […] 길이는 10~15초로 해 줘. 강렬한 장면 전환과 역동적인 타이포그래피를 사용하고, 역동적인 Apple 스타일의 밝은 영상으로 만들어 줘. […] 코드를 작성하기 전에 스토리보드를 만들고 신중하게 계획해 줘.
+```
+
+</details>
+
+### 13. Remotion 앱 홍보 영상 2
+
+[원문](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video) · [설명과 사용 방법](prompts/13-remotion-app-promo-2.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+앞서 만든 Twig 홍보 영상과 비슷한 수준의 영상을 만들고 싶어. […] Vanta Supply 계열 제품인 Glass Materials를 홍보해 줘. […] 길이는 15초로 해 줘. 강렬한 장면 전환과 역동적인 타이포그래피, 입자가 느껴지는 그러데이션이 있는 어두운 스타일을 사용해 줘. […] 코드를 작성하기 전에 스토리보드를 만들고 신중하게 계획해 줘.
+```
+
+</details>
+
+### 14. 실제 자산을 사용하는 SaaS 출시 영상
+
+[원문](https://community.startuptalky.com/discussions/post/opus-5-5-is-very-good-at-creating-videos-this-is-the-prompt-i-used-i-f6nYoYyvteUj6bd) · [설명과 사용 방법](prompts/14-saas-launch-real-assets.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
+
+```text
+fatjoe.com/grow를 위한 매우 전문적인 SaaS 제품 출시 영상을 만들어 줘. 사람들이 알아볼 만한 SaaS 제품 하나를 찾아 참고 대상으로 삼아 줘. 인터넷에서 실제 이미지와 자산을 찾아 사용해 줘. 새로운 SaaS를 출시할 때 소셜 미디어에서 볼 수 있는 세련된 모션 그래픽 제품 영상처럼 기능과 이점을 보여 줘. fatjoe 브랜드를 사용해 줘. […]
+```
+
+</details>
+
+### 15. UI 변형 무한 반복 영상
+
+[원문](https://x.com/twoclipping/status/2103273003555402193) · [설명과 사용 방법](prompts/15-ui-morph-loop.md)
+
+<details>
+<summary>한국어 프롬프트 펼치기</summary>
 
 ```text
 <inputs>
-Ask me for: 8 to 12 UI states I want the shape to become (e.g. button, loader, player, slider, toggle, tabs, chart, command palette, toast), pure black and white or one accent color, and a royalty-free song around 120 BPM (e.g. Mixkit, free for commercial use).
+다음 입력을 요청해 줘: 하나의 도형이 변할 UI 상태 8~12개(예: 버튼, 로더, 플레이어, 슬라이더, 토글, 탭, 차트, 명령 팔레트, 토스트), 순수 흑백 또는 강조색 한 가지, 120 BPM 안팎의 저작권료 없는 음악(예: 상업적 이용이 가능한 Mixkit 음악).
 </inputs>
 
 <direction>
-Dribbble-level UI motion. One shape, never cut: every state is the same element morphing its size, radius and color while its content swaps with a short blur. A cursor drives every change with real clicks and drags. Light warm-gray canvas, black and white components, one clean UI font (Geist). Springs everywhere, a tiny overshoot at most. The camera zooms so each state fills the frame. The last frame is the first frame, so it loops.
-Banned: bouncy easing, particle bursts, glows, gradients on UI chrome, mismatched icon strokes, dead time, anything that looks like a template.
+Dribbble 수준의 UI 모션. 하나의 도형을 컷 없이 계속 변형한다. 각 상태는 같은 요소의 크기, 모서리 반경, 색을 바꾸고 내용은 짧은 흐림 효과와 함께 교체한다. 커서는 실제 클릭과 드래그로 모든 변화를 일으킨다. 밝고 따뜻한 회색 배경, 흑백 컴포넌트, 깔끔한 UI 글꼴 하나(Geist)를 사용한다. 곳곳에 스프링 동작을 넣되 초과 움직임은 아주 작게 한다. 각 상태가 화면을 채우도록 카메라를 확대한다. 마지막 프레임을 첫 프레임과 같게 만들어 반복한다.
+금지: 과도하게 튀는 가속, 입자 폭발, 발광, UI 장식의 그러데이션, 제각각인 아이콘 선 굵기, 변화 없는 구간, 템플릿처럼 보이는 요소.
 </direction>
 
 <structure>
-120 BPM, 7 bars, something happens on every beat.
-Button → loader → check → dynamic island → music player with a play/pause morph → scrub the progress bar → it becomes a volume slider that stretches when dragged past max → a toggle flips on the beat → the knob becomes a liquid tab indicator → the tabs open into a chart that draws itself, with a tooltip on hover → it collapses into ⌘K → type to filter → enter → toast → back to the button.
+120 BPM, 7마디. 매 박자마다 사건이 일어난다.
+버튼 → 로더 → 완료 표시 → 다이내믹 아일랜드 → 재생/일시정지 모양이 변하는 음악 플레이어 → 진행 막대 탐색 → 끝을 넘어 드래그하면 늘어나는 음량 슬라이더 → 박자에 맞춰 켜지는 토글 → 액체처럼 움직이는 탭 표시기로 바뀌는 손잡이 → 스스로 그려지는 차트로 펼쳐지는 탭과 마우스 오버 툴팁 → ⌘K로 접힘 → 필터 검색어 입력 → Enter → 토스트 → 처음 버튼으로 복귀.
 </structure>
 
 <build>
-1. One HTML file, square 1440x1440. Every style is computed from time inside seek(t): no CSS transitions, no timers, no state carried between frames.
-2. Springs are closed-form step responses. A value that changes target many times is the sum of one spring per change, so it stays a pure function of time.
-3. The tab indicator's two edges ride different springs, so the leading edge stretches ahead of the trailing one. Same trick for the toggle knob.
-4. Drags are direct manipulation: while the cursor is held, the value is computed from its position. On release it springs back from wherever it was.
-5. Analyze the song with numpy for the beat grid and start on a downbeat. Place every UI sound by its measured peak.
-6. Render with Playwright: 4 subframes per frame, blended with ffmpeg tmix for motion blur at 60fps.
-7. Render one frame per beat before the full render. Fix anything off the grid, cramped or hard to read.
+1. 1440×1440 단일 HTML 파일. 모든 스타일을 seek(t) 함수의 시간값으로 계산한다. CSS 전환, 타이머, 프레임 간 상태 저장은 사용하지 않는다.
+2. 스프링은 닫힌 형태의 계단 응답으로 계산한다. 목표값이 여러 번 바뀌면 변화마다 스프링 하나를 더해 시간의 순수 함수로 유지한다.
+3. 탭 표시기의 양쪽 끝에 서로 다른 스프링을 적용해 앞쪽 끝이 뒤쪽보다 먼저 늘어나게 한다. 토글 손잡이에도 같은 기법을 사용한다.
+4. 드래그는 직접 조작으로 구현한다. 커서를 누르고 있는 동안 위치에서 값을 계산하고, 놓으면 그 지점에서 스프링으로 되돌린다.
+5. numpy로 음악을 분석해 박자표를 만들고 강박에서 시작한다. UI 효과음은 측정한 소리의 정점에 맞춰 배치한다.
+6. Playwright로 프레임마다 하위 프레임 4개를 렌더링하고 FFmpeg tmix로 혼합해 60fps 모션 블러를 만든다.
+7. 전체 렌더링 전에 박자마다 한 프레임씩 출력해 박자에서 벗어나거나 비좁거나 읽기 어려운 부분을 수정한다.
 </build>
 
 <gotchas>
-Never put will-change on anything the camera scales or the text renders blurry. Text that swaps inside a morphing container needs its own enter and exit timing or it overlaps. Make the last frame identical to the first, cursor position and speed included, or the loop stutters.
+카메라가 확대하는 요소에 will-change를 설정하지 마라. 글자가 흐려진다. 변형되는 컨테이너 안의 글자를 바꿀 때는 등장과 퇴장 시점을 따로 잡아 겹침을 막아라. 반복 구간이 끊기지 않도록 커서의 위치와 속도까지 마지막 프레임을 첫 프레임과 같게 만들어라.
 </gotchas>
 
 <start>
-Ask me for the inputs, then show me the state list on the beat grid before you write any code.
+코드를 작성하기 전에 입력값을 물어보고 박자표 위에 상태 목록을 보여 줘.
 </start>
 ```
 
 </details>
 
-#### 16. 高端极简产品片（1920×1080，接入真实素材）
+### 16. 고급 미니멀 제품 영상
 
-作者：zero (@twoclipping) · [原帖](https://youmind.com/video-prompts/high-end-product-video-prompt-11292) · [单独文件](prompts/16-high-end-product-video.md)
-
-YouMind 收录，1.4K 收藏。
+[원문](https://youmind.com/video-prompts/high-end-product-video-prompt-11292) · [설명과 사용 방법](prompts/16-high-end-product-video.md)
 
 <details>
-<summary>展开提示词（2494 字符）</summary>
+<summary>한국어 프롬프트 펼치기</summary>
 
 ```text
 <inputs>
-Ask me for: the product name and a one-line promise, 3 to 5 UI moments to show, one accent color, 10 to 20 real vertical clips I own, and a royalty-free song with a clear drop (e.g. Mixkit, free for commercial use).
+제품 이름과 한 줄 약속, 보여 줄 UI 순간 3~5개, 강조색 하나, 내가 소유한 실제 세로 영상 10~20개, 뚜렷한 드롭이 있는 저작권료 없는 음악(예: 상업적 이용이 가능한 Mixkit 음악)을 요청해 줘.
 </inputs>
 <direction>
-High-end minimal. One idea per shot, lots of empty space, one accent color, one clean sans (Geist or Inter) with tight tracking. Masked type reveals, match cuts, one smooth camera language. Real footage only, never placeholder cards. No full stops in on-screen text.
-Banned: shockwave rings, particle bursts, RGB split, camera shake, lens flares, neon glows, grid floors, flashing backgrounds, bouncy easing.
+고급스러운 미니멀 스타일. 한 장면에 한 가지 생각만 담고 여백을 넉넉히 둔다. 강조색 하나와 자간을 좁힌 깔끔한 산세리프 글꼴 하나(Geist 또는 Inter)를 사용한다. 마스크로 글자가 드러나고, 동작을 이어 붙이는 매치 컷과 일관된 카메라 움직임을 사용한다. 실제 촬영 영상만 사용하고 임시 카드 화면은 쓰지 않는다. 화면 글자 끝에는 마침표를 넣지 않는다.
+금지: 충격파 고리, 입자 폭발, RGB 분리, 카메라 흔들림, 렌즈 플레어, 네온 발광, 격자 바닥, 깜박이는 배경, 튀는 가속.
 </direction>
 <structure>
-10 bars at 120 BPM, 2 seconds each.
-Bar 1: the hook lands word by word on the beats.
-Bar 2: one hook word morphs into the product UI. A cursor types and clicks.
-The drop: a circle opens out of the button into a dark scene.
-Then one move per bar: a wall of real clips with a scan line and 3 winners, the key output as big type, a 3D carousel of real videos with floor reflections and a motion-blurred whip onto one hero clip, the hero in a phone next to a panel that flips into results, big stats on push cuts, a 3-word ticker, a logo reveal, a fade to black.
+120 BPM에서 10마디, 마디당 2초.
+1마디: 시선을 끄는 문구가 박자마다 한 단어씩 나타난다.
+2마디: 문구의 한 단어가 제품 UI로 변형되고 커서가 입력하고 클릭한다.
+드롭: 버튼에서 원이 확장되며 어두운 장면으로 전환된다.
+이후 마디마다 한 가지 동작: 실제 영상의 벽과 스캔 라인, 선택된 영상 3개 → 핵심 결과를 큰 글자로 표시 → 바닥 반사가 있는 실제 영상의 3D 회전 목마와 모션 블러가 걸린 빠른 카메라 전환 → 휴대전화 속 대표 영상과 결과 화면으로 뒤집히는 패널 → 빠른 컷에 맞춘 큰 통계 → 세 단어 티커 → 로고 공개 → 검은 화면으로 페이드아웃.
 </structure>
 <build>
-1. One HTML file at 1920x1080. Every style is computed from time inside seek(t): no CSS animations, no timers, no state between frames.
-2. Real video: extract clips to 30fps JPEG sequences with ffmpeg and swap img sources per frame. seek awaits the image decodes.
-3. Analyze the song with numpy: tempo, beat grid, energy per bar, the drop. Calibrate the grid to the real kick hits. Every cut sits on a downbeat, every UI hit on a beat.
-4. Render with Playwright: 3 subframes per frame at t minus, at, and plus 1/240s, then blend with ffmpeg tmix for real motion blur at 60fps.
-5. Place each sound effect so its measured peak, not its file start, lands on the event. Keep the effects quiet under the music. Loudnorm to -14 LUFS.
-6. Probe 20 or more frames before the full render. Fix anything cluttered, overlapping or hard to read.
+1. 1920×1080 단일 HTML 파일. 모든 스타일은 seek(t)의 시간값으로 계산한다. CSS 애니메이션, 타이머, 프레임 간 상태 저장은 금지한다.
+2. 실제 영상은 FFmpeg로 30fps JPEG 시퀀스로 추출하고 프레임마다 img 소스를 교체한다. seek는 이미지 디코딩이 끝날 때까지 기다린다.
+3. numpy로 음악의 템포, 박자표, 마디별 에너지와 드롭을 분석한다. 실제 킥 소리에 맞춰 박자표를 보정한다. 모든 컷은 강박에, 모든 UI 동작은 박자에 배치한다.
+4. Playwright로 각 프레임의 t-1/240초, t, t+1/240초 하위 프레임 3개를 렌더링한 뒤 FFmpeg tmix로 혼합해 60fps 모션 블러를 만든다.
+5. 각 효과음의 파일 시작점이 아니라 측정한 소리의 정점이 사건에 맞도록 배치한다. 효과음은 음악보다 작게 유지한다. loudnorm으로 -14 LUFS에 맞춘다.
+6. 전체 렌더링 전에 최소 20프레임을 검사하고 복잡하거나 겹치거나 읽기 어려운 부분을 수정한다.
 </build>
 <gotchas>
-Never set opacity or filter on a preserve-3d element, because it flattens and both faces show. Fade its wrapper instead. Measure element positions at runtime for match cuts. Only use music and sound effects whose license allows commercial use.
+preserve-3d 요소에 opacity나 filter를 설정하면 평면화되어 앞뒷면이 함께 보이므로 래퍼에 페이드를 적용하라. 매치 컷에는 실행 중 측정한 요소 위치를 사용하라. 음악과 효과음은 상업적 이용이 허용된 것만 사용하라.
 </gotchas>
 <start>
-Ask me for the inputs, then show me a storyboard with every timing on the beat grid before you write any code.
+코드 작성 전에 입력값을 물어보고 모든 시점을 박자표에 맞춘 스토리보드를 보여 줘.
 </start>
 ```
 
 </details>
 
-### 2.5 像素 / 三维场景规格型提示词
+### 17. 주문을 시전하는 픽셀 마법사
 
-#### 17. 像素巫师施法动画
-
-作者：Majid Manzarpour · [原帖](https://x.com/majidmanzarpour/status/2102476499387383834) · [单独文件](prompts/17-pixel-wizard.md)
+[원문](https://x.com/majidmanzarpour/status/2102476499387383834) · [설명과 사용 방법](prompts/17-pixel-wizard.md)
 
 <details>
-<summary>展开提示词（2209 字符）</summary>
+<summary>한국어 프롬프트 펼치기</summary>
 
 ```text
-Create a single self-contained HTML file that renders an animated pixel art wizard casting a spell, using vanilla JavaScript and Canvas 2D. No external assets, libraries, or network requests.
+외부 자산, 라이브러리, 네트워크 요청 없이 순수 JavaScript와 Canvas 2D만으로 주문을 시전하는 픽셀 마법사 애니메이션을 구현한 단일 HTML 파일을 만들어 줘.
 
-RENDERING
-- Draw everything to an offscreen canvas at a fixed logical resolution of 128x96, then blit to a fullscreen display canvas scaled by the largest integer factor that fits the window, centered, with imageSmoothingEnabled = false and CSS image-rendering: pixelated.
-- All drawing snaps to integer coordinates on the logical canvas. No sub-pixel positions, anti-aliasing, gradients, or shadowBlur.
-- Fixed palette of ~24 hex colors: deep blues/purples for night sky, warm robe tones, 3-4 bright magic colors. Every pixel comes from this palette.
+렌더링
+- 고정 논리 해상도 128×96의 화면 밖 캔버스에 모두 그린 뒤 창에 맞는 최대 정수 배율로 확대해 중앙의 전체 화면 캔버스에 복사한다. imageSmoothingEnabled = false와 CSS image-rendering: pixelated를 적용한다.
+- 모든 그림은 논리 캔버스의 정수 좌표에 맞춘다. 부분 픽셀 위치, 안티앨리어싱, 그러데이션, shadowBlur는 사용하지 않는다.
+- 밤하늘의 진한 파랑과 보라, 따뜻한 로브 색, 밝은 마법 색 3~4개를 포함한 약 24개 16진수 색상으로 고정 팔레트를 만든다. 모든 픽셀은 이 팔레트에서 고른다.
 
-CHARACTER
-- Build the wizard procedurally from filled rects and pixel runs, ~24x32 logical pixels: pointed hat with a bend, long beard, two-shade robe with darker outline, staff with a gem at the tip.
-- Parameterize the pose (staff angle, arm raise, head tilt, robe sway). Animate parameters smoothly, then quantize to the pixel grid each frame so motion reads at an 8-12 fps pixel animation feel even though the loop runs at 60fps.
+캐릭터
+- 채운 사각형과 픽셀 줄로 약 24×32 논리 픽셀의 마법사를 절차적으로 그린다. 휘어진 뾰족 모자, 긴 수염, 진한 외곽선이 있는 두 가지 색조의 로브, 끝에 보석이 달린 지팡이를 포함한다.
+- 지팡이 각도, 팔 높이, 고개 기울기, 로브 흔들림을 매개변수로 만든다. 매개변수는 부드럽게 움직이되 프레임마다 픽셀 격자에 맞춰 양자화한다. 반복 루프가 60fps여도 8~12fps 픽셀 애니메이션처럼 보이게 한다.
 
-ANIMATION
-- Looping state machine: IDLE (2-frame bob, beard sway) -> CHARGE (staff raises, gem flickers, sparks spiral inward) -> CAST (bright burst, projectile fires across the scene, 1-2 pixel screen shake) -> RECOVER (settle back). Ease pose parameters between keyframes.
-- Pooled allocation-free particle system: preallocate and reuse. Sparks orbit the gem during CHARGE, explode outward on CAST, each particle stepping its palette index from white to magic color to dark before despawn. Snap particle positions to the grid when drawing.
-- Fixed 60hz timestep update with rAF rendering. Zero object allocation inside the loop.
+애니메이션
+- 반복 상태 기계: 대기(2프레임 상하 움직임과 수염 흔들림) → 충전(지팡이를 들고 보석이 깜박이며 불꽃이 안쪽으로 나선 이동) → 시전(밝은 폭발과 화면을 가로지르는 발사체, 1~2픽셀 화면 흔들림) → 회복(원래 자세로 돌아옴). 핵심 자세 사이 매개변수를 부드럽게 보간한다.
+- 할당 없는 재사용 입자 풀을 미리 만든다. 충전 중 불꽃은 보석을 돌고, 시전 중 바깥으로 퍼진다. 입자는 흰색에서 마법 색, 어두운 색 순으로 팔레트 인덱스를 바꾼 뒤 사라진다. 그릴 때 위치를 픽셀 격자에 맞춘다.
+- 고정 60Hz 시간 간격으로 갱신하고 requestAnimationFrame으로 렌더링한다. 반복 루프 안에서는 객체를 할당하지 않는다.
 
-SCENE
-- Minimal background: dark sky, a few twinkling 1px stars, moon, stone floor line. Character silhouette must read clearly.
-- Subtle 1px rim light on the wizard from the gem, brightening during CHARGE and CAST.
+장면
+- 어두운 하늘, 반짝이는 1픽셀 별 몇 개, 달, 돌바닥 선만 있는 간결한 배경. 캐릭터의 실루엣이 분명해야 한다.
+- 보석에서 마법사 쪽으로 은은한 1픽셀 윤곽광을 비추고 충전과 시전 때 밝게 한다.
 
-QUALITY BAR
-- Crisp pixels at any window size, seamless loop, stable 60fps, readable silhouette. Should look like a polished 16-bit sprite animation, not vector shapes scaled down.
+품질 기준
+- 창 크기에 관계없이 선명한 픽셀, 끊기지 않는 반복, 안정적인 60fps, 알아보기 쉬운 실루엣. 확대된 벡터 도형이 아니라 완성도 높은 16비트 스프라이트 애니메이션처럼 보여야 한다.
 ```
 
 </details>
 
-#### 18. 交互式史前岛屿（Three.js）
+### 18. 상호작용하는 선사 시대 섬
 
-作者：Vib3Coded · [原帖](https://x.com/vib3coded/status/2102450842070569099) · [单独文件](prompts/18-prehistoric-island-threejs.md)
-
-原本用于和其他模型横向对比，也可以作为三维场景提示词的写法参考。
+[원문](https://x.com/vib3coded/status/2102450842070569099) · [설명과 사용 방법](prompts/18-prehistoric-island-threejs.md)
 
 <details>
-<summary>展开提示词（4131 字符）</summary>
+<summary>한국어 프롬프트 펼치기</summary>
 
 ```text
-Create a beautiful, highly detailed, fully interactive 3D prehistoric island using Three.js and WebGL. Deliver everything in a single standalone HTML file that opens directly in Chrome. Embed assets wherever possible.
+Three.js와 WebGL로 아름답고 세부 묘사가 풍부하며 완전히 상호작용할 수 있는 3D 선사 시대 섬을 만들어 줘. Chrome에서 바로 열 수 있는 단일 HTML 파일로 제공하고 가능한 자산은 파일 안에 포함해 줘.
 
-VISUAL DIRECTION
-Build a large, rounded island surrounded by an ocean with a transparent underwater cross-section. The result should feel like a premium miniature world: lush vegetation, expressive dinosaurs, rich materials, atmospheric lighting, and polished animation. Use a cohesive, stylized art direction rather than basic geometric shapes.
-ISLAND
-Create varied terrain with beaches, rocky cliffs, dense prehistoric forests, giant ferns, a waterfall, a freshwater pond, and a volcano. Add a small research station, wooden walkways, observation platforms, supply crates, and dinosaur nests. Make the island spacious enough for dinosaurs to move naturally between distinct areas.
+시각적 방향
+투명한 수중 단면이 보이는 바다로 둘러싸인 크고 둥근 섬을 만들어 줘. 무성한 식물, 생동감 있는 공룡, 풍부한 재질, 분위기 있는 조명, 매끄러운 애니메이션으로 고급 미니어처 세계처럼 보여야 해. 단순한 기하학적 모양 대신 일관된 스타일을 적용해 줘.
 
-WATER CROSS-SECTION
-The water must form a deep, rounded volume around the island, with clearly visible underwater scenery through its sides. Include a textured seabed, rocks, aquatic plants, fish, bubbles, and a green marine reptile swimming beneath the surface. Do not place ordinary land dinosaurs underwater, and do not add a submarine.
-Use animated waves, Fresnel reflections, underwater light patterns, shoreline foam, and splashes. Avoid transparency sorting artifacts and visible gaps between the island and water.
+섬
+해변, 바위 절벽, 울창한 선사 시대 숲, 거대한 양치식물, 폭포, 민물 연못, 화산을 넣어 다양한 지형을 만들어 줘. 작은 연구 기지, 나무 산책로, 관찰대, 보급 상자, 공룡 둥지도 추가해 줘. 공룡이 서로 다른 구역을 자연스럽게 오갈 만큼 넓게 만들어 줘.
 
-DINOSAURS
-Include several distinct species, such as a long-necked sauropod, Triceratops, Stegosaurus, a large theropod, and smaller herd animals. Add pterosaurs circling overhead.
-Give every species recognizable anatomy, shaped bodies, articulated limbs, detailed heads, tails, and appropriate skin patterns. Avoid assembling the finished dinosaurs from obvious boxes or disconnected spheres.
+물의 단면
+섬 주변 바다는 깊고 둥근 부피감을 가져야 하며 측면을 통해 수중 풍경이 또렷이 보여야 해. 질감 있는 해저, 바위, 수생 식물, 물고기, 기포, 수면 아래를 헤엄치는 초록색 해양 파충류를 넣어 줘. 육지 공룡을 물속에 넣거나 잠수함을 추가하지 마.
+애니메이션 파도, 프레넬 반사, 수중 빛무늬, 해안 거품, 물보라를 넣어 줘. 투명도 정렬 오류와 섬과 바다 사이의 틈이 보이지 않게 해 줘.
 
-NATURAL ANIMATION
-Use hierarchical skeletons with correctly positioned joints. Walking must have distinct stance and swing phases: feet stay planted during contact and lift cleanly during each step. Match stride length to movement speed.
+공룡
+목이 긴 용각류, 트리케라톱스, 스테고사우루스, 큰 수각류, 작은 무리 동물 등 구별되는 여러 종을 포함해 줘. 하늘에는 익룡이 선회하게 해 줘.
+각 종의 해부학적 특징이 드러나도록 몸체, 관절이 있는 팔다리, 세부 묘사가 있는 머리와 꼬리, 적절한 피부 무늬를 만들어 줘. 뻔한 상자나 분리된 구체를 이어 붙인 완성형 공룡은 피해야 해.
 
-Use terrain sampling and inverse kinematics to keep feet on the ground. Add weight shifts, subtle body movement, balanced tail motion, head turns, and breathing. Dinosaurs must never float, slide, intersect the ground, or walk through buildings, rocks, trees, or each other.
-Use obstacle avoidance and safe paths. Different species should have different movement speeds, gait patterns, and behaviors. Marine animals must face their direction of travel.
+자연스러운 애니메이션
+관절 위치가 정확한 계층형 골격을 사용해 줘. 걸음은 지지 단계와 다리를 들어 옮기는 단계를 구분해야 해. 땅을 딛는 동안 발은 고정되고 매 걸음마다 분명히 들려야 해. 보폭은 이동 속도에 맞춰 줘.
+지형 높이 샘플링과 역운동학으로 발을 땅에 붙여 줘. 체중 이동, 미세한 몸 움직임, 균형 잡힌 꼬리 움직임, 고개 돌리기, 호흡도 넣어 줘. 공룡이 뜨거나 미끄러지거나 땅을 뚫거나 건물, 바위, 나무, 다른 공룡을 통과하면 안 돼.
+장애물을 피하고 안전한 경로로 움직여 줘. 종마다 이동 속도, 걸음걸이, 행동이 달라야 해. 해양 동물은 이동 방향을 바라봐야 해.
 
-INTERACTION
-Allow users to:
+상호작용
+사용자가 다음 작업을 할 수 있게 해 줘.
+- 카메라를 자유롭게 돌리고 확대하며 수중 단면을 관찰한다.
+- 공룡을 선택하고 부드럽게 움직이는 카메라로 따라간다.
+- 적절한 곳에 먹이를 놓고 주변 공룡이 다가와 먹는 모습을 본다.
+- 마시기, 쉬기, 울기, 무리 이동을 실행한다.
+- 둥지를 탐색하고 새끼가 부화하는 모습을 본다.
+- 해양 파충류가 수면으로 올라오며 물보라를 일으키게 한다.
+- 낮, 석양, 밤을 전환한다.
+- 비, 바람, 화산 활동을 조절한다.
+- 시뮬레이션을 일시정지하고 장면을 초기화한다.
+모든 조작에 분명하고 눈에 보이는 반응을 제공해 줘. 상호작용을 반복할 수 있어야 하며 애니메이션이 겹쳐 캐릭터 자세가 망가지면 안 돼.
 
-Rotate the camera freely, zoom, and inspect the underwater cross-section.
-Select a dinosaur and follow it with a smoothly moving camera.
+분위기와 오디오
+흔들리는 나뭇잎, 흘러가는 구름, 새, 곤충, 빗방울, 밤에 켜지는 연구 기지의 따뜻한 조명을 넣어 줘. 잔잔한 배경 음악과 환경음을 추가하고 실제로 작동하는 음악 전환 버튼과 음량 슬라이더를 제공해 줘. 사용자가 상호작용한 뒤에만 오디오를 시작해 줘.
 
-Place food in suitable locations and watch nearby dinosaurs approach and eat.
+인터페이스
+한국어 레이블을 쓰는 간결하고 세련된 인터페이스를 만들어 줘. 큰 패널이 섬을 가리지 않도록 장면을 중심에 두고 데스크톱과 모바일에 반응하도록 해 줘.
 
-Trigger drinking, resting, calling, and herd movement.
-
-Explore nests and watch a hatchling emerge.
-Trigger a marine reptile surfacing with a splash.
-Switch between daylight, sunset, and night.
-Adjust rain, wind, and volcanic activity.
-Pause the simulation and reset the scene.
-Make every control produce a clear, visible response. Keep interactions repeatable and prevent overlapping animations from breaking character poses.
-ATMOSPHERE AND AUDIO
-Add moving foliage, drifting clouds, birds, insects, rain particles, and warm research-station lights at night. Include quiet atmospheric music and environmental sounds with a working music toggle and volume slider. Start audio only after user interaction.
-INTERFACE
-Use a compact, elegant interface with English labels. Keep the scene dominant and avoid large panels covering the island. Make the layout responsive for desktop and mobile.
-TECHNICAL QUALITY
-Use instancing for repeated vegetation and props, efficient geometry, appropriate shadows, and restrained post-processing. Balance visual richness with smooth real-time performance.
-Build a complete scene, not a mockup. Test the final HTML directly in a desktop browser, inspect screenshots and the console, exercise every interaction, and fix loading errors, floating dinosaurs, foot sliding, broken collisions, water artifacts, and camera problems before delivery.
+기술적 품질
+반복되는 식물과 소품에는 인스턴싱을 쓰고 효율적인 지오메트리, 적절한 그림자, 절제된 후처리를 적용해 줘. 시각적 풍부함과 실시간 성능 사이의 균형을 맞춰 줘.
+모형이 아닌 완성된 장면을 만들어 줘. 최종 HTML을 데스크톱 브라우저에서 직접 열고 스크린샷과 콘솔을 확인하며 모든 상호작용을 시험해 줘. 전달 전 로딩 오류, 공중에 뜬 공룡, 발 미끄러짐, 충돌 오류, 물 표현 문제, 카메라 문제를 고쳐 줘.
 ```
 
 </details>
 
-## 🛠 技术路线
+## 제작 방식
 
-| 路线 | 工具栈 | 代表案例 |
+| 방식 | 주요 도구 | 해당 사례 |
 |---|---|---|
-| 单 HTML + Canvas/JS 逐帧绘制 | 原生 JS、Canvas 2D、Web Audio；Playwright/Puppeteer 截帧 + FFmpeg | 像素巫师、彩虹路、特殊相对论、鸡尾酒图解、UI 形态变换 |
-| p5.js + 笔刷库画“手绘”动画 | p5.js、p5.brush（水彩/铅笔笔触）、无头 Chrome、FFmpeg | P(doom) MV、Let Me Go MV、Opus 的一生 |
-| Remotion（React 写视频） | React/TypeScript、SVG、Canvas、Remotion Studio、可上 AWS 云渲染 | AI 发展史 3 分钟短片、Danny Stuart 的 App 宣传片 |
-| HyperFrames 渲染 HTML 视频 | HyperFrames、单个 index.html、Python 合成音乐 | Shotbase 发布视频、Small Print 动画 |
-| Manim 数学/论文讲解 | Manim、Kokoro-82M TTS、FFmpeg | Deedy 的论文动画讲解 |
-| Python 逐像素画线稿 | Python（PIL 等）、TTS、FFmpeg | 中华五千年、大气环流、口播转线稿 |
-| Three.js/WebGL 三维场景 | Three.js、程序化模型/纹理/音效 | 奥斯特里茨战役、史前岛屿、安提基特拉机械 |
-| 操控专业软件 | After Effects、Blender、Higgsfield、Runway MCP、Seedance API | AE 发布广告、Blender 程序化镜头、超级智能纪录片 |
-| 剪辑已有素材 | browser-use/video-use、FFmpeg | 13 条原始素材剪成发布视频 |
+| 단일 HTML과 Canvas로 프레임 그리기 | JavaScript, Canvas 2D, Web Audio, Playwright/Puppeteer, FFmpeg | 픽셀 마법사, 네그로니, UI 변형 |
+| p5.js로 손그림풍 애니메이션 | p5.js, p5.brush, 헤드리스 Chrome, FFmpeg | P(doom), 《Let Me Go》, Opus의 일생 |
+| Remotion으로 영상 구성 | React, TypeScript, SVG, Canvas, Remotion Studio | AI 발전사, 앱 홍보 영상 |
+| HyperFrames로 HTML 영상 렌더링 | HyperFrames, 단일 HTML, Python 음악 합성 | Shotbase, Small Print |
+| Manim으로 수학·논문 설명 | Manim, Kokoro-82M TTS, FFmpeg | 연구 논문 애니메이션 설명 |
+| Python으로 선화 프레임 그리기 | Python, Pillow, TTS, FFmpeg | 중국 5천 년 역사, 대기 대순환, 실사 설명 영상 변환 |
+| Three.js와 WebGL로 3D 장면 만들기 | Three.js, 절차 생성 모델·재질·음향 | 아우스터리츠 전투, 선사 시대 섬, 안티키테라 기계 |
+| 전문 영상 도구 조작 | After Effects, Blender, Higgsfield, Runway MCP, Seedance API | 출시 광고, Blender 장면, 다큐멘터리 |
+| 기존 영상 편집 | browser-use, video-use, FFmpeg | 원본 영상 13개를 엮은 출시 영상 |
 
-## 🎬 案例总览
+## 사례 목록
 
-共 54 条，“—”表示原帖没有披露。多数视频可以在 [awesome-claude-video](https://github.com/opusvideo/awesome-claude-video) 里直接播放。结构化数据见 [`cases.json`](cases.json)。
+공개 사례 54건이다. `—`는 원 게시물에 정보가 없다는 뜻이다. 기계가 읽을 수 있는 데이터는 [cases.json](cases.json)에 있다.
 
-| 类别 | 案例 | 作者 | 实现方式 / 要点 | 耗时成本 |
+| 분류 | 사례 | 작성자 | 제작 방식·특징 | 시간·비용 |
 |---|---|---|---|---|
-| 产品广告 | [推理创业公司发布视频](https://x.com/deedydas/status/2102787937482252537) | Deedy | 一句话提示，模型自选工具 | 1 分钟，约 2 美元 |
-| 产品广告 | [网站改版汇成预告片](https://x.com/trq212/status/2102477340920152162) | trq212 | 先迭代评审多个网站改版方案，再汇成预告片 | — |
-| 产品广告 | [Shotbase 产品发布视频](https://x.com/Miguel07Code/status/2102441708395041170) | Miguel07Code | Opus 5.5 + HyperFrames | — |
-| 产品广告 | [可继续编辑的 AE 发布广告](https://x.com/seiiiiiiiiiiru/status/2102636308707287201) | SEIIIRU | Claude 操作 Higgsfield 与 After Effects，工程可在 AE 内继续改 | Pro 套餐 5% 用量，约 150 日元 |
-| 产品广告 | [旁白驱动的 AE 广告](https://x.com/seiiiiiiiiiiru/status/2103227982592831846) | SEIIIRU | Gemini 3.8 Flash TTS 生成旁白，Claude 在 AE 中配画面、音乐、音效 | — |
-| 产品广告 | [BLVCKOUT 非官方广告](https://x.com/ystknsh/status/2102766871007436993) | ystknsh | MulmoCast 出片，Opus 写脚本和动画，Gemini 出图和配音，ElevenLabs 配乐 | — |
-| 产品广告 | [Mole 产品宣传片](https://x.com/berryxia/status/2103419787565216023) | Berryxia | 把“输入产品，产出宣传片”封装成可复用 Skill | — |
-| 产品广告 | [App 宣传片两支](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video) | Danny Stuart | Remotion，先出分镜再写代码 | 每支约 10 分钟 |
-| 产品广告 | [润唇膏广告（对比 GPT-6 Astra）](https://x.com/higgsfield_ai/status/2102913101926731879) | Higgsfield AI | 同一套品牌素材，在 AE 里做 20 秒卡点产品片 | — |
-| 产品广告 | [30 秒企业讲解片模板](https://x.com/alex_prompter/status/2103499977632997524) | Alex Prompter | 单 HTML，5 个场景，对话内播放后录屏 | — |
-| 动态图形 | [15 秒动态设计作品集](https://x.com/stephanlivera/status/2103315922098470926) | Stephan Livera | Max effort，一句话 | — |
-| 动态图形 | [无缝 UI 形态变换循环](https://x.com/twoclipping/status/2103273003555402193) | zero | 完整模板，Playwright + FFmpeg tmix 动态模糊 | — |
-| 科普讲解 | [交互式相机镜头实验室](https://x.com/RyanSael/status/2102591147927654847) | Ryan Sael | 一次成型的可交互镜头模拟 | 1 小时 26 分钟，API 费用 25.66 美元 |
-| 科普讲解 | [研究论文动画讲解](https://x.com/deedydas/status/2103141339651350646) | Deedy | Claude 自选 Manim、Kokoro-82M 和 FFmpeg，在网页对话里完成 | — |
-| 科普讲解 | [AI 发展史 3 分钟短片](https://x.com/kimmonismus/status/2102844654169575547) | Chubby (kimmonismus) | 约 7400 行 React/TS（Remotion），SVG/Canvas 绘制，开源 TTS，Python 配乐 | 约 1 小时，周额度 7% |
-| 科普讲解 | [中华五千年历史速览](https://x.com/akokoi1/status/2102583898865873225) | WY | 一句话，线稿 + 音乐 | — |
-| 科普讲解 | [大气环流讲解（近 5 分钟）](https://x.com/akokoi1/status/2102606609574941028) | WY | 线稿 + TTS 旁白 + 中英字幕 | 26 分钟，token 消耗很低 |
-| 科普讲解 | [物理竞赛压轴题讲解](https://x.com/akokoi1/status/2102680453912449223) | WY | 复用大气环流提示词，换成具体题目 | — |
-| 科普讲解 | [Negroni 鸡尾酒动态图解](https://x.com/Ror_Fly/status/2102853258582880547) | Rory Flynn | 1 张参考图，30 秒 HTML 动画 | — |
-| 科普讲解 | [46 秒讲特殊相对论（日文）](https://x.com/masahirochaen/status/2102722719502704941) | チャエン | 参考推文 + 简短指令，Canvas 画 1395 帧，BGM 和音效都由 JS 生成 | 渲染约 2 分钟 |
-| 科普讲解 | [奥斯特里茨战役电影](https://x.com/WinterArc2125/status/2103116235009347650) | Winter | WebGL + Kokoro 旁白，代码开源 | — |
-| 科普讲解 | [口播改线稿动画讲解](https://x.com/AxtonLiu/status/2102827887732932956) | Axton | Python 逐帧画线稿，约 30 个镜头，保留原声和字幕 | 28 分 53 秒，人工介入 0 次 |
-| 科普讲解 | [Transformer 讲解视频](https://youmind.com/opus-5-5-prompts) | 宝玉 | 用 JS 做视频 | — |
-| 科普讲解 | [从房间放大到夸克](https://youmind.com/opus-5-5-prompts) | Taelin | 多尺度连续推镜 | — |
-| 叙事动画 | [你热爱什么？](https://x.com/kevin_t_ngo/status/2102437977435893771) | Kevin Ngo | JS 逐帧手绘风动画 | — |
-| 叙事动画 | [像素巫师](https://x.com/majidmanzarpour/status/2102476258948927543) | Majid Manzarpour | 原生 JS + Canvas 2D，单 HTML | — |
-| 叙事动画 | [火星探测器短片](https://x.com/AndrewOnXYZ/status/2102512879258009818) | AndrewOnXYZ | 代码渲染短片 | — |
-| 叙事动画 | [Opus 的一生](https://x.com/shfred0/status/2102495989194236158) | shfred0 | 让 Claude 讲自己从诞生到现在的一生，JS 笔触逐帧绘制 | — |
-| 叙事动画 | [想象如何解决难题](https://x.com/chetaslua/status/2102478640428773861) | chetaslua | 代码动画 | — |
-| 叙事动画 | [Small Print（字里行间）](https://x.com/Voxyz_ai/status/2102531681450119426) | Vox | 单个 index.html，HyperFrames 渲染，Python 合成音乐，逐秒复查打磨 | — |
-| 叙事动画 | [啤酒节 30 秒动画](https://x.com/cherry_mx_reds/status/2102493303388475855) | Tak | 角色截图 + 本地音频采样 | — |
-| 叙事动画 | [一滴雨的故事](https://x.com/aollivier82/status/2102498589259821559) | aollivier82 | 代码动画 | — |
-| 叙事动画 | [小蝌蚪找妈妈（水墨）](https://x.com/akokoi1/status/2102699703309898026) | WY | 水墨风代码动画 | — |
-| 叙事动画 | [Rain Station 30 秒 2D 分镜短片](https://youmind.com/opus-5-5-prompts) | Feicai | 2D 动画故事板预览片 | — |
-| 艺术/3D | [轨道中的世界](https://x.com/devteamdrew/status/2102436464323661880) | devteamdrew | 纯 JS 动画 | — |
-| 艺术/3D | [安提基特拉机械海底探索](https://x.com/edwinarbus/status/2102463453176979794) | edwin | Three.js：2047 条鱼、2.5 万片草叶、4.7 万个粒子、30 个齿轮 | — |
-| 艺术/3D | [投石机草图转交互模拟](https://x.com/poolio/status/2102445641205248145) | poolio | 从草图生成物理模拟 | — |
-| 艺术/3D | [彩虹路像素跑酷](https://x.com/riku720720/status/2102515055116063144) | Rikuo | 超长规格型日文提示词 | — |
-| 艺术/3D | [会动的海岸画](https://x.com/strawhatsu4/status/2102457111787745405) | strawhatsu4 | 代码绘画动画 | — |
-| 艺术/3D | [丙烯画风新西兰游记](https://x.com/ann_nnng/status/2102573127192727704) | Ann Nguyen | 旅行照片转丙烯画风，JS 绘制 | — |
-| 艺术/3D | [Blender 外骨骼 / 风车 / 眼球解剖](https://x.com/higgsfield_ai/status/2102449278283313303) | Higgsfield AI | Claude 操作 Blender 建模和做动画 | — |
-| 艺术/3D | [Blender 程序化 10 秒镜头](https://x.com/Stefan_3D_AI/status/2102471841046786153) | Stefan 3D AI | 只用 Blender、全程序化，外加录制搭建延时 | 35 分钟，19.96 万输出 token，约 13.3 美元 |
-| 艺术/3D | [史前岛屿交互场景](https://x.com/vib3coded/status/2102450842070569099) | Vib3Coded | Three.js，单 HTML | — |
-| 音乐 MV | [I'm Upping My P(doom)](https://github.com/JohnHeibel/PDoomVideo) | NotinReality / JohnHeibel | p5.js + p5.brush，无头 Chrome 截帧，FFmpeg 合成；156.6 秒，约 3760 帧；跑了两轮 | 10% Max 5x 周额度 |
-| 音乐 MV | [《Let Me Go》动画 MV](https://linux.do/t/topic/2943096) | Linux.do 网友 | 上传歌词和音频，effort xhigh，p5.js 逐帧绘制，人工反馈改角色 | 初版 45 分钟，约 200 美元 |
-| 音乐 MV | [Claude Pop 混合流程 MV](https://x.com/donaldjewkes/status/2102801274173587569) | donald | fal 角色图 + Seedance 2.5 底片 + JS 逐帧重绘 | fal 预算约 2000 美元 |
-| 音乐 MV | [Suno 作曲 + Opus 作词做 MV](https://www.bilibili.com/video/BV1qihf6rE6f/) | B 站 UP 主 | Suno 编曲演唱，Opus 5.5 作词并制作 MV | — |
-| 音乐 MV | [EVA 风竖屏歌词视频](https://youmind.com/opus-5-5-prompts) | kurahu | 歌词本身作为主角的竖屏 MV | — |
-| 纪录/剪辑 | [5 分钟超级智能纪录片](https://x.com/gavinpurcell/status/2103304514329854102) | Gavin Purcell | 接 Runway MCP，“面向普通人的 Netflix 风纪录片” | — |
-| 纪录/剪辑 | [13 条原始素材剪成发布视频](https://x.com/gregpr07/status/2102984873351037161) | gregpr07 | video-use 挑片段，剪辑、调色、字幕 | — |
-| B 站合集 | [地球 46 亿年进化史](https://www.bilibili.com/video/BV1Vfau6iE9Q/) | B 站 UP 主 | 代码动画 | — |
-| B 站合集 | [群论之美宣传片](https://www.bilibili.com/video/BV12Zhm6oE6m/) | B 站 UP 主 | 代码动画 | — |
-| B 站合集 | [“瘫坐长椅看到原子弹爆炸”动画](https://www.bilibili.com/video/BV1jyaA6QEoH/) | B 站 UP 主 | 代码动画 | — |
-| B 站合集 | [一句话生成的 MV](https://www.bilibili.com/video/BV1EDhW6LEYU/) | B 站 UP 主 | 一句话 MV | — |
+| 제품 광고 | [추론 스타트업 출시 영상](https://x.com/deedydas/status/2102787937482252537) | Deedy | 한 문장으로 요청하고 도구 선택은 모델에 맡김 | 1분, 약 2달러 |
+| 제품 광고 | [웹사이트 개편안을 엮은 예고편](https://x.com/trq212/status/2102477340920152162) | trq212 | 여러 웹사이트 개편안을 검토한 뒤 예고편으로 엮음 | — |
+| 제품 광고 | [Shotbase 제품 출시 영상](https://x.com/Miguel07Code/status/2102441708395041170) | Miguel07Code | Opus 5.5와 HyperFrames 사용 | — |
+| 제품 광고 | [수정 가능한 After Effects 출시 광고](https://x.com/seiiiiiiiiiiru/status/2102636308707287201) | SEIIIRU | Claude가 Higgsfield와 After Effects를 조작하며 프로젝트 파일을 계속 수정할 수 있음 | Pro 요금제 사용량 5%, 약 150엔 |
+| 제품 광고 | [내레이션을 중심으로 한 After Effects 광고](https://x.com/seiiiiiiiiiiru/status/2103227982592831846) | SEIIIRU | Gemini 3.8 Flash TTS로 내레이션을 만들고 Claude가 화면, 음악, 효과음을 배치 | — |
+| 제품 광고 | [BLVCKOUT 비공식 광고](https://x.com/ystknsh/status/2102766871007436993) | ystknsh | MulmoCast로 제작하고 Opus가 대본과 애니메이션, Gemini가 이미지와 음성, ElevenLabs가 음악을 담당 | — |
+| 제품 광고 | [Mole 제품 홍보 영상](https://x.com/berryxia/status/2103419787565216023) | Berryxia | 제품 정보를 넣으면 홍보 영상을 만드는 재사용 스킬로 구성 | — |
+| 제품 광고 | [앱 홍보 영상 두 편](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video) | Danny Stuart | Remotion으로 스토리보드를 먼저 만든 뒤 코드를 작성 | 편당 약 10분 |
+| 제품 광고 | [립밤 광고: GPT-6 Astra와 비교](https://x.com/higgsfield_ai/status/2102913101926731879) | Higgsfield AI | 같은 브랜드 자산으로 After Effects에서 20초 제품 영상을 제작 | — |
+| 제품 광고 | [30초 기업 설명 영상 템플릿](https://x.com/alex_prompter/status/2103499977632997524) | Alex Prompter | 단일 HTML 파일의 5개 장면을 대화에서 재생하고 녹화 | — |
+| 모션 그래픽 | [15초 모션 디자인 쇼릴](https://x.com/stephanlivera/status/2103315922098470926) | Stephan Livera | Max 추론 강도에서 한 문장으로 요청 | — |
+| 모션 그래픽 | [끊김 없는 UI 변형 반복 영상](https://x.com/twoclipping/status/2103273003555402193) | zero | 상세 템플릿과 Playwright, FFmpeg tmix로 모션 블러 구현 | — |
+| 과학·지식 설명 | [상호작용하는 카메라 렌즈 실험실](https://x.com/RyanSael/status/2102591147927654847) | Ryan Sael | 한 번에 완성된 상호작용 렌즈 시뮬레이션 | 1시간 26분, API 비용 25.66달러 |
+| 과학·지식 설명 | [연구 논문 애니메이션 설명](https://x.com/deedydas/status/2103141339651350646) | Deedy | Claude가 Manim, Kokoro-82M, FFmpeg를 선택해 웹 대화에서 완성 | — |
+| 과학·지식 설명 | [AI 발전사 3분 영상](https://x.com/kimmonismus/status/2102844654169575547) | Chubby (kimmonismus) | React/TypeScript 약 7,400줄, Remotion, SVG/Canvas, 오픈소스 TTS, Python 음악 | 약 1시간, 주간 한도의 7% |
+| 과학·지식 설명 | [중국 5천 년 역사 요약](https://x.com/akokoi1/status/2102583898865873225) | WY | 한 문장으로 선화 애니메이션과 음악 제작 | — |
+| 과학·지식 설명 | [대기 대순환 설명 영상](https://x.com/akokoi1/status/2102606609574941028) | WY | 선화, TTS 내레이션, 중국어·영어 자막 | 26분, 토큰 사용량 적음 |
+| 과학·지식 설명 | [물리 경시대회 어려운 문제 설명](https://x.com/akokoi1/status/2102680453912449223) | WY | 대기 대순환 프롬프트의 주제를 구체적인 문제로 교체 | — |
+| 과학·지식 설명 | [네그로니 칵테일 레시피 애니메이션](https://x.com/Ror_Fly/status/2102853258582880547) | Rory Flynn | 참고 이미지 한 장으로 30초 HTML 애니메이션 제작 | — |
+| 과학·지식 설명 | [46초 특수상대성이론 설명: 일본어](https://x.com/masahirochaen/status/2102722719502704941) | チャエン | 참고 게시물과 짧은 지시로 Canvas 1,395프레임 제작, 음악과 효과음도 JavaScript로 생성 | 렌더링 약 2분 |
+| 과학·지식 설명 | [아우스터리츠 전투 영화](https://x.com/WinterArc2125/status/2103116235009347650) | Winter | WebGL과 Kokoro 내레이션 사용, 코드 공개 | — |
+| 과학·지식 설명 | [실사 설명 영상을 선화 애니메이션으로 변환](https://x.com/AxtonLiu/status/2102827887732932956) | Axton | Python으로 약 30개 장면을 프레임마다 그리고 원음과 자막 유지 | 28분 53초, 수동 개입 없음 |
+| 과학·지식 설명 | [Transformer 설명 영상](https://youmind.com/opus-5-5-prompts) | 바오위 | JavaScript로 영상 제작 | — |
+| 과학·지식 설명 | [방에서 쿼크까지 확대](https://youmind.com/opus-5-5-prompts) | Taelin | 여러 크기 단계를 잇는 연속 카메라 이동 | — |
+| 서사 애니메이션 | [당신이 사랑하는 것은 무엇인가?](https://x.com/kevin_t_ngo/status/2102437977435893771) | Kevin Ngo | JavaScript로 프레임마다 손그림풍 애니메이션 제작 | — |
+| 서사 애니메이션 | [픽셀 마법사](https://x.com/majidmanzarpour/status/2102476258948927543) | Majid Manzarpour | 순수 JavaScript와 Canvas 2D로 만든 단일 HTML 파일 | — |
+| 서사 애니메이션 | [화성 탐사선 단편](https://x.com/AndrewOnXYZ/status/2102512879258009818) | AndrewOnXYZ | 코드로 렌더링한 단편 영상 | — |
+| 서사 애니메이션 | [Opus의 일생](https://x.com/shfred0/status/2102495989194236158) | shfred0 | Claude가 자신의 탄생부터 현재까지를 이야기하고 JavaScript로 프레임마다 그림 | — |
+| 서사 애니메이션 | [어려운 문제 해결을 상상하기](https://x.com/chetaslua/status/2102478640428773861) | chetaslua | 코드 애니메이션 | — |
+| 서사 애니메이션 | [Small Print: 글자 사이의 의미](https://x.com/Voxyz_ai/status/2102531681450119426) | Vox | 단일 index.html을 HyperFrames로 렌더링하고 Python으로 음악을 합성, 매초 검토 | — |
+| 서사 애니메이션 | [맥주 축제 30초 애니메이션](https://x.com/cherry_mx_reds/status/2102493303388475855) | Tak | 캐릭터 스크린샷과 로컬 오디오 샘플 사용 | — |
+| 서사 애니메이션 | [빗방울 하나의 이야기](https://x.com/aollivier82/status/2102498589259821559) | aollivier82 | 코드 애니메이션 | — |
+| 서사 애니메이션 | [엄마를 찾는 올챙이: 수묵화](https://x.com/akokoi1/status/2102699703309898026) | WY | 수묵화풍 코드 애니메이션 | — |
+| 서사 애니메이션 | [Rain Station 30초 2D 스토리보드 영상](https://youmind.com/opus-5-5-prompts) | Feicai | 2D 애니메이션 스토리보드 미리보기 | — |
+| 예술·3D | [궤도 속 세계](https://x.com/devteamdrew/status/2102436464323661880) | devteamdrew | 순수 JavaScript 애니메이션 | — |
+| 예술·3D | [안티키테라 기계의 해저 탐험](https://x.com/edwinarbus/status/2102463453176979794) | edwin | Three.js로 물고기 2,047마리, 풀잎 2만 5천 개, 입자 4만 7천 개, 톱니바퀴 30개 구현 | — |
+| 예술·3D | [투석기 스케치를 상호작용 시뮬레이션으로 변환](https://x.com/poolio/status/2102445641205248145) | poolio | 스케치에서 물리 시뮬레이션 생성 | — |
+| 예술·3D | [무지개 길 픽셀 달리기](https://x.com/riku720720/status/2102515055116063144) | Rikuo | 매우 긴 일본어 상세 사양 프롬프트 | — |
+| 예술·3D | [움직이는 해안 그림](https://x.com/strawhatsu4/status/2102457111787745405) | strawhatsu4 | 코드로 그린 회화 애니메이션 | — |
+| 예술·3D | [아크릴화풍 뉴질랜드 여행기](https://x.com/ann_nnng/status/2102573127192727704) | Ann Nguyen | 여행 사진을 아크릴화풍으로 바꾸고 JavaScript로 그림 | — |
+| 예술·3D | [Blender 외골격·풍차·안구 해부](https://x.com/higgsfield_ai/status/2102449278283313303) | Higgsfield AI | Claude가 Blender를 조작해 모델링과 애니메이션 제작 | — |
+| 예술·3D | [Blender 절차 생성 10초 장면](https://x.com/Stefan_3D_AI/status/2102471841046786153) | Stefan 3D AI | Blender만 사용해 절차적으로 제작하고 작업 과정 타임랩스도 녹화 | 35분, 출력 토큰 19만 9,600개, 약 13.3달러 |
+| 예술·3D | [상호작용하는 선사 시대 섬](https://x.com/vib3coded/status/2102450842070569099) | Vib3Coded | Three.js로 만든 단일 HTML 파일 | — |
+| 뮤직비디오 | [I'm Upping My P(doom)](https://github.com/JohnHeibel/PDoomVideo) | NotinReality / JohnHeibel | p5.js와 p5.brush로 그리고 헤드리스 Chrome으로 캡처해 FFmpeg로 합성, 156.6초 약 3,760프레임, 2회 시도 | Max 5x 주간 한도의 10% |
+| 뮤직비디오 | [《Let Me Go》 애니메이션 뮤직비디오](https://linux.do/t/topic/2943096) | Linux.do 이용자 | 가사와 오디오를 올리고 xhigh 추론 강도로 p5.js 프레임 작업, 사람의 피드백으로 캐릭터 수정 | 초안 45분, 약 200달러 |
+| 뮤직비디오 | [Claude Pop 혼합 제작 뮤직비디오](https://x.com/donaldjewkes/status/2102801274173587569) | donald | fal 캐릭터 이미지, Seedance 2.5 영상, JavaScript 프레임별 재그리기 | fal 예산 약 2,000달러 |
+| 뮤직비디오 | [Suno 작곡과 Opus 작사 뮤직비디오](https://www.bilibili.com/video/BV1qihf6rE6f/) | Bilibili 크리에이터 | Suno가 편곡·노래하고 Opus 5.5가 작사·뮤직비디오 제작 | — |
+| 뮤직비디오 | [EVA풍 세로 가사 영상](https://youmind.com/opus-5-5-prompts) | kurahu | 가사를 주인공으로 삼은 세로형 뮤직비디오 | — |
+| 다큐·편집 | [5분 초지능 다큐멘터리](https://x.com/gavinpurcell/status/2103304514329854102) | Gavin Purcell | Runway MCP를 연결해 일반 대중을 위한 Netflix풍 다큐멘터리 제작 | — |
+| 다큐·편집 | [원본 영상 13개를 엮은 출시 영상](https://x.com/gregpr07/status/2102984873351037161) | gregpr07 | video-use로 장면을 골라 편집, 색보정, 자막 작업 | — |
+| Bilibili 모음 | [지구 46억 년 진화사](https://www.bilibili.com/video/BV1Vfau6iE9Q/) | Bilibili 크리에이터 | 코드 애니메이션 | — |
+| Bilibili 모음 | [군론의 아름다움 홍보 영상](https://www.bilibili.com/video/BV12Zhm6oE6m/) | Bilibili 크리에이터 | 코드 애니메이션 | — |
+| Bilibili 모음 | [벤치에 앉아 핵폭발을 보는 애니메이션](https://www.bilibili.com/video/BV1jyaA6QEoH/) | Bilibili 크리에이터 | 코드 애니메이션 | — |
+| Bilibili 모음 | [한 문장으로 만든 뮤직비디오](https://www.bilibili.com/video/BV1EDhW6LEYU/) | Bilibili 크리에이터 | 한 문장으로 뮤직비디오 제작 | — |
 
-## 💡 写法经验
+## 프롬프트 작성 요령
 
-- **先分镜，后代码。** 高质量案例基本都要求先交分镜或节拍表，确认后再写代码。这样后面可以只改某一个镜头。
-- **像导演一样给结构。** 写清总时长、场景数、每个场景讲什么。给参考视频或参考图，比堆形容词好用。多用 dramatic cuts、match cut、kinetic typography 这类镜头语言。
-- **列禁用清单。** 比如粒子爆炸、RGB 分离、镜头光晕、霓虹辉光、弹跳缓动。模板味大多来自这些。
-- **确定性渲染。** 每一帧必须只由时间 t 决定（`seek(t)`）：不用 CSS transition 和计时器，帧与帧之间不保存状态，否则并行渲染会闪。可参考 [PDoomVideo 的 ANIMATION_GUIDE.md](https://github.com/JohnHeibel/PDoomVideo/blob/main/ANIMATION_GUIDE.md)。
-- **让它自己看片、自己返工。** 正式渲染前先抽查关键帧截图，修掉重叠、拥挤、看不清的地方。
-- **给足推理强度和工具。** effort 开到 high 以上。TTS、音乐、视频模型的 API 文档放进项目目录，key 放在 `.env` 里。安全起见，在 `.claude/settings.json` 加一条 `"deny": ["Read(./.env)"]`。
-- **做成 Skill 复用。** HyperFrames、Remotion 都有现成的 Agent Skill；也可以把“输入产品 → 输出宣传片”封装成自己的 Skill。
+- **스토리보드를 먼저 만든다.** 장면이나 박자표를 확인한 뒤 코드를 작성하면 특정 장면만 다시 수정하기 쉽다.
+- **시간과 장면을 구체적으로 적는다.** 총 길이, 장면 수, 각 장면의 메시지, 참고 영상이나 이미지를 제공한다. 매치 컷이나 역동적인 타이포그래피처럼 원하는 영상 문법도 명시한다.
+- **피하고 싶은 효과를 적는다.** 입자 폭발, RGB 분리, 렌즈 플레어, 네온 발광, 튀는 움직임 등 원치 않는 요소를 분명히 한다.
+- **프레임을 시간의 함수로 만든다.** `seek(t)`로 모든 시각 상태를 결정하면 임의 시점의 프레임을 안정적으로 렌더링할 수 있다. CSS 전환과 타이머, 이전 프레임의 상태에 의존하는 구현은 피한다. [PDoomVideo 애니메이션 가이드](https://github.com/JohnHeibel/PDoomVideo/blob/main/ANIMATION_GUIDE.md)를 참고할 수 있다.
+- **전체 렌더링 전에 대표 프레임을 검사한다.** 글자 겹침, 화면 밀도, 가독성, 박자 정렬을 고친다.
+- **사용할 도구와 자산을 준비한다.** TTS나 영상 모델을 쓴다면 해당 API 문서를 먼저 확인한다. 인증 정보는 프롬프트에 붙이지 말고 별도로 안전하게 관리한다.
 
-## ⚠️ 局限与成本
+## 한계와 비용
 
-- 出来的是动态图形，不是写实视频。
-- 产物是代码，本地要有 Node、浏览器、FFmpeg 才能变成 MP4。
-- 成本差距很大：一句话短片几美元；几分钟的 MV 单次会话可能到 200 美元，或占 Max 周额度的 7%–10%。
-- 所谓“一次成型”，很多其实跑了两轮以上，预算按多轮迭代来估比较稳。
+- 코드 기반 렌더링은 주로 모션 그래픽이며 실제 촬영 영상과 결과가 다르다.
+- MP4를 만들려면 로컬 렌더링 환경이 필요할 수 있다.
+- 비용 차이가 크다. 짧은 영상은 몇 달러였다는 사례가 있지만, 몇 분짜리 뮤직비디오는 한 세션에 200달러가 들었다는 사례도 있다.
+- 한 번에 완성했다고 소개된 영상도 여러 차례 수정했을 수 있으므로 반복 작업을 고려해 예산을 잡는다.
 
-## 📚 资料来源
+## 출처
 
-- [awesome-claude-video（中英双语案例合集）](https://github.com/opusvideo/awesome-claude-video)
-- [YouMind：Claude Opus 5.5 提示词库](https://youmind.com/opus-5-5-prompts)
-- [Danny Stuart：Agentic video production with Claude Code and Opus](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video)
-- [OrcaRouter：What “Plan a Video” Actually Produces](https://www.orcarouter.ai/blog/claude-opus-5-5-video-plan-one-shot)
-- [SlopTV：Opus 5.5 drew a 30-second Negroni explainer in HTML](https://sloptvnews.com/opus-5-5-negroni-explainer-html-motion-graphics-iteration/)
-- [80aj：Claude Opus 5.5 自制动画 MV 走红](https://www.80aj.com/2026/09/25/claude-opus-animation-mv/)
-- [新浪科技：实测 Opus 5.5](https://finance.sina.com.cn/tech/roll/2026-09-25/doc-inisyuqm4676290.shtml)
-- [Linux.do：Opus 5.5 为歌曲逐帧画出动画 MV](https://linux.do/t/topic/2943096)
-- [PDoomVideo 仓库](https://github.com/JohnHeibel/PDoomVideo)
-- [Battle-of-Austerlitz-Film 仓库](https://github.com/WinterArc21/Battle-of-Austerlitz-Film)
-- [riba2534/claude-opus-5-5-demo（3D 游戏，附中文提示词）](https://github.com/riba2534/claude-opus-5-5-demo)
+- [awesome-claude-video 사례 모음](https://github.com/opusvideo/awesome-claude-video)
+- [YouMind의 Claude Opus 5.5 프롬프트 모음](https://youmind.com/opus-5-5-prompts)
+- [Danny Stuart의 Claude Code와 Opus 영상 제작 글](https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video)
+- [OrcaRouter의 영상 계획 사례 분석](https://www.orcarouter.ai/blog/claude-opus-5-5-video-plan-one-shot)
+- [SlopTV의 네그로니 HTML 영상 사례](https://sloptvnews.com/opus-5-5-negroni-explainer-html-motion-graphics-iteration/)
+- [80aj의 Opus 애니메이션 뮤직비디오 소개](https://www.80aj.com/2026/09/25/claude-opus-animation-mv/)
+- [Sina Tech의 Opus 5.5 실험 기사](https://finance.sina.com.cn/tech/roll/2026-09-25/doc-inisyuqm4676290.shtml)
+- [Linux.do의 프레임별 애니메이션 뮤직비디오](https://linux.do/t/topic/2943096)
+- [PDoomVideo 저장소](https://github.com/JohnHeibel/PDoomVideo)
+- [Battle-of-Austerlitz-Film 저장소](https://github.com/WinterArc21/Battle-of-Austerlitz-Film)
+- [riba2534의 Claude Opus 5.5 3D 게임 예제](https://github.com/riba2534/claude-opus-5-5-demo)
 
-## 🤝 贡献
+## 기여
 
-欢迎提 PR 补充新案例。请附上原帖链接，只提交作者本人公开的提示词。
+새 사례를 제안할 때는 원저작자가 공개한 프롬프트와 원 게시물 링크를 함께 제공해 주세요. 번역 오류 수정도 환영합니다.
 
-## 声明
+## 저작권과 삭제 요청
 
-所有提示词和视频作品的版权归原作者所有，本仓库只做索引和整理。原作者如不希望被收录，请开 issue，会尽快删除。
+프롬프트와 영상의 저작권은 각 원저작자에게 있습니다. 이 저장소는 사례를 정리하고 한국어 번역을 제공합니다. 원저작자가 수록을 원치 않으면 이슈를 남겨 주세요.
 
 ---
 
-整理：[向阳乔木](https://github.com/joeseesun) · 2026-09-27
+원자료 정리: [샹양차오무](https://github.com/joeseesun) · 2026-09-27

@@ -1,50 +1,52 @@
-# 高端极简产品片（1920×1080，接入真实素材）
+# 고급 미니멀 제품 영상
 
-- **作者**：zero (@twoclipping)
-- **原帖 / 来源**：https://youmind.com/video-prompts/high-end-product-video-prompt-11292
-- **分组**：2.4 专业级 Motion Design 模板（@zero）
+- **작성자:** zero (@twoclipping)
+- **원문 출처:** https://youmind.com/video-prompts/high-end-product-video-prompt-11292
+- **유형:** 전문 템플릿
 
-## 说明
+## 사례 설명
 
-YouMind 收录，1.4K 收藏。
+1920×1080 영상. 실제 영상 자산과 상업적으로 사용할 수 있는 음악을 준비한다.
 
-## 提示词（提示词原文）
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
 <inputs>
-Ask me for: the product name and a one-line promise, 3 to 5 UI moments to show, one accent color, 10 to 20 real vertical clips I own, and a royalty-free song with a clear drop (e.g. Mixkit, free for commercial use).
+제품 이름과 한 줄 약속, 보여 줄 UI 순간 3~5개, 강조색 하나, 내가 소유한 실제 세로 영상 10~20개, 뚜렷한 드롭이 있는 저작권료 없는 음악(예: 상업적 이용이 가능한 Mixkit 음악)을 요청해 줘.
 </inputs>
 <direction>
-High-end minimal. One idea per shot, lots of empty space, one accent color, one clean sans (Geist or Inter) with tight tracking. Masked type reveals, match cuts, one smooth camera language. Real footage only, never placeholder cards. No full stops in on-screen text.
-Banned: shockwave rings, particle bursts, RGB split, camera shake, lens flares, neon glows, grid floors, flashing backgrounds, bouncy easing.
+고급스러운 미니멀 스타일. 한 장면에 한 가지 생각만 담고 여백을 넉넉히 둔다. 강조색 하나와 자간을 좁힌 깔끔한 산세리프 글꼴 하나(Geist 또는 Inter)를 사용한다. 마스크로 글자가 드러나고, 동작을 이어 붙이는 매치 컷과 일관된 카메라 움직임을 사용한다. 실제 촬영 영상만 사용하고 임시 카드 화면은 쓰지 않는다. 화면 글자 끝에는 마침표를 넣지 않는다.
+금지: 충격파 고리, 입자 폭발, RGB 분리, 카메라 흔들림, 렌즈 플레어, 네온 발광, 격자 바닥, 깜박이는 배경, 튀는 가속.
 </direction>
 <structure>
-10 bars at 120 BPM, 2 seconds each.
-Bar 1: the hook lands word by word on the beats.
-Bar 2: one hook word morphs into the product UI. A cursor types and clicks.
-The drop: a circle opens out of the button into a dark scene.
-Then one move per bar: a wall of real clips with a scan line and 3 winners, the key output as big type, a 3D carousel of real videos with floor reflections and a motion-blurred whip onto one hero clip, the hero in a phone next to a panel that flips into results, big stats on push cuts, a 3-word ticker, a logo reveal, a fade to black.
+120 BPM에서 10마디, 마디당 2초.
+1마디: 시선을 끄는 문구가 박자마다 한 단어씩 나타난다.
+2마디: 문구의 한 단어가 제품 UI로 변형되고 커서가 입력하고 클릭한다.
+드롭: 버튼에서 원이 확장되며 어두운 장면으로 전환된다.
+이후 마디마다 한 가지 동작: 실제 영상의 벽과 스캔 라인, 선택된 영상 3개 → 핵심 결과를 큰 글자로 표시 → 바닥 반사가 있는 실제 영상의 3D 회전 목마와 모션 블러가 걸린 빠른 카메라 전환 → 휴대전화 속 대표 영상과 결과 화면으로 뒤집히는 패널 → 빠른 컷에 맞춘 큰 통계 → 세 단어 티커 → 로고 공개 → 검은 화면으로 페이드아웃.
 </structure>
 <build>
-1. One HTML file at 1920x1080. Every style is computed from time inside seek(t): no CSS animations, no timers, no state between frames.
-2. Real video: extract clips to 30fps JPEG sequences with ffmpeg and swap img sources per frame. seek awaits the image decodes.
-3. Analyze the song with numpy: tempo, beat grid, energy per bar, the drop. Calibrate the grid to the real kick hits. Every cut sits on a downbeat, every UI hit on a beat.
-4. Render with Playwright: 3 subframes per frame at t minus, at, and plus 1/240s, then blend with ffmpeg tmix for real motion blur at 60fps.
-5. Place each sound effect so its measured peak, not its file start, lands on the event. Keep the effects quiet under the music. Loudnorm to -14 LUFS.
-6. Probe 20 or more frames before the full render. Fix anything cluttered, overlapping or hard to read.
+1. 1920×1080 단일 HTML 파일. 모든 스타일은 seek(t)의 시간값으로 계산한다. CSS 애니메이션, 타이머, 프레임 간 상태 저장은 금지한다.
+2. 실제 영상은 FFmpeg로 30fps JPEG 시퀀스로 추출하고 프레임마다 img 소스를 교체한다. seek는 이미지 디코딩이 끝날 때까지 기다린다.
+3. numpy로 음악의 템포, 박자표, 마디별 에너지와 드롭을 분석한다. 실제 킥 소리에 맞춰 박자표를 보정한다. 모든 컷은 강박에, 모든 UI 동작은 박자에 배치한다.
+4. Playwright로 각 프레임의 t-1/240초, t, t+1/240초 하위 프레임 3개를 렌더링한 뒤 FFmpeg tmix로 혼합해 60fps 모션 블러를 만든다.
+5. 각 효과음의 파일 시작점이 아니라 측정한 소리의 정점이 사건에 맞도록 배치한다. 효과음은 음악보다 작게 유지한다. loudnorm으로 -14 LUFS에 맞춘다.
+6. 전체 렌더링 전에 최소 20프레임을 검사하고 복잡하거나 겹치거나 읽기 어려운 부분을 수정한다.
 </build>
 <gotchas>
-Never set opacity or filter on a preserve-3d element, because it flattens and both faces show. Fade its wrapper instead. Measure element positions at runtime for match cuts. Only use music and sound effects whose license allows commercial use.
+preserve-3d 요소에 opacity나 filter를 설정하면 평면화되어 앞뒷면이 함께 보이므로 래퍼에 페이드를 적용하라. 매치 컷에는 실행 중 측정한 요소 위치를 사용하라. 음악과 효과음은 상업적 이용이 허용된 것만 사용하라.
 </gotchas>
 <start>
-Ask me for the inputs, then show me a storyboard with every timing on the beat grid before you write any code.
+코드 작성 전에 입력값을 물어보고 모든 시점을 박자표에 맞춘 스토리보드를 보여 줘.
 </start>
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

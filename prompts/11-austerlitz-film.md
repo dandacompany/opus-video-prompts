@@ -1,31 +1,33 @@
-# 奥斯特里茨战役历史电影（4 到 5 分钟）
+# 아우스터리츠 전투 역사 영화
 
-- **作者**：Winter (@WinterArc2125)
-- **原帖 / 来源**：https://x.com/WinterArc2125/status/2103116689944502720
-- **分组**：2.2 带结构的讲解与营销片模板
+- **작성자:** Winter (@WinterArc2125)
+- **원문 출처:** https://x.com/WinterArc2125/status/2103116689944502720
+- **유형:** 장문 프롬프트
 
-## 说明
+## 사례 설명
 
-附了几幅战争油画作为视觉参考。开源仓库：[Battle-of-Austerlitz-Film](https://github.com/WinterArc21/Battle-of-Austerlitz-Film)，包含 WebGL 渲染器、地形数据、Kokoro 旁白、合成音效，以及 Chromium 到 FFmpeg 的渲染流程。
+전쟁 유화 여러 장을 시각 참고 자료로 첨부했다. 오픈소스 프로젝트에는 WebGL 렌더러와 음성 및 FFmpeg 렌더링 과정이 담겨 있다.
 
-## 提示词（提示词原文）
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
-Create a 4–5 minute cinematic video about the Battle of Austerlitz (1805), built entirely in code.
+코드만으로 1805년 아우스터리츠 전투를 다룬 4~5분짜리 영화 같은 영상을 만들어 줘.
 
-Research the battle thoroughly and decide for yourself how to tell the story, structure the pacing, explain the strategy, and visualize the events. I want it to be historically accurate, dramatic, easy to understand, and visually exceptional.
+전투를 충분히 조사한 뒤 이야기 방식, 전개 속도, 전략 설명, 사건의 시각화를 스스로 결정해 줘. 역사적으로 정확하고 극적이며 이해하기 쉽고 시각적으로 뛰어나야 해.
 
-Use the attached paintings as visual inspiration, not a strict style requirement. I love their scale, atmosphere, smoke, dramatic skies, cavalry, massed formations, landscape, and sense of chaos. Find a way to translate that feeling into code — but if you can invent a stronger visual language, do it.
+첨부한 그림은 엄격한 스타일 지침이 아니라 시각적 영감으로 사용해 줘. 웅장한 규모, 분위기, 연기, 극적인 하늘, 기병대, 밀집 대형, 풍경, 혼돈이 마음에 들어. 그 느낌을 코드로 표현하되 더 강력한 시각 언어를 생각해 낼 수 있다면 그렇게 해 줘.
 
-Don't make it feel like a generic infographic or strategy game. It should feel like a cinematic historical film that happens to be rendered with code.
+흔한 인포그래픽이나 전략 게임처럼 보이지 않게 해 줘. 코드로 렌더링했지만 역사 영화처럼 느껴져야 해.
 
-You have complete creative control. Surprise me.
+창작 방향은 전적으로 맡길게. 놀라게 해 줘.
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

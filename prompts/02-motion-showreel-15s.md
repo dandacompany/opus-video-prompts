@@ -1,23 +1,25 @@
-# 15 秒动态设计作品集（Max effort）
+# 15초 모션 디자인 쇼릴
 
-- **作者**：Stephan Livera
-- **原帖 / 来源**：https://x.com/stephanlivera/status/2103315922098470926
-- **分组**：2.1 一句话即可出片
+- **작성자:** Stephan Livera
+- **원문 출처:** https://x.com/stephanlivera/status/2103315922098470926
+- **유형:** 한 문장
 
-## 说明
+## 사례 설명
 
-effort 调到 Max，让模型自由发挥。
+추론 강도를 Max로 설정하고 영상의 구성을 모델에 맡겼다.
 
-## 提示词（提示词原文）
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
-make a dynamic 15-second motion graphics video that shows what an incredible motion designer you are, like it's your showreel for a résumé. go all out.
+15초짜리 역동적인 모션 그래픽 영상을 만들어 줘. 뛰어난 모션 디자이너의 이력서용 쇼릴처럼 실력을 마음껏 보여 줘.
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

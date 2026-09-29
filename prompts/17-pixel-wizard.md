@@ -1,40 +1,46 @@
-# 像素巫师施法动画
+# 주문을 시전하는 픽셀 마법사
 
-- **作者**：Majid Manzarpour
-- **原帖 / 来源**：https://x.com/majidmanzarpour/status/2102476499387383834
-- **分组**：2.5 像素 / 三维场景规格型提示词
+- **작성자:** Majid Manzarpour
+- **원문 출처:** https://x.com/majidmanzarpour/status/2102476499387383834
+- **유형:** 상세 사양
 
-## 提示词（提示词原文）
+## 사례 설명
+
+단일 HTML 파일에서 픽셀 아트 애니메이션을 구현하는 사양이다.
+
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
-Create a single self-contained HTML file that renders an animated pixel art wizard casting a spell, using vanilla JavaScript and Canvas 2D. No external assets, libraries, or network requests.
+외부 자산, 라이브러리, 네트워크 요청 없이 순수 JavaScript와 Canvas 2D만으로 주문을 시전하는 픽셀 마법사 애니메이션을 구현한 단일 HTML 파일을 만들어 줘.
 
-RENDERING
-- Draw everything to an offscreen canvas at a fixed logical resolution of 128x96, then blit to a fullscreen display canvas scaled by the largest integer factor that fits the window, centered, with imageSmoothingEnabled = false and CSS image-rendering: pixelated.
-- All drawing snaps to integer coordinates on the logical canvas. No sub-pixel positions, anti-aliasing, gradients, or shadowBlur.
-- Fixed palette of ~24 hex colors: deep blues/purples for night sky, warm robe tones, 3-4 bright magic colors. Every pixel comes from this palette.
+렌더링
+- 고정 논리 해상도 128×96의 화면 밖 캔버스에 모두 그린 뒤 창에 맞는 최대 정수 배율로 확대해 중앙의 전체 화면 캔버스에 복사한다. imageSmoothingEnabled = false와 CSS image-rendering: pixelated를 적용한다.
+- 모든 그림은 논리 캔버스의 정수 좌표에 맞춘다. 부분 픽셀 위치, 안티앨리어싱, 그러데이션, shadowBlur는 사용하지 않는다.
+- 밤하늘의 진한 파랑과 보라, 따뜻한 로브 색, 밝은 마법 색 3~4개를 포함한 약 24개 16진수 색상으로 고정 팔레트를 만든다. 모든 픽셀은 이 팔레트에서 고른다.
 
-CHARACTER
-- Build the wizard procedurally from filled rects and pixel runs, ~24x32 logical pixels: pointed hat with a bend, long beard, two-shade robe with darker outline, staff with a gem at the tip.
-- Parameterize the pose (staff angle, arm raise, head tilt, robe sway). Animate parameters smoothly, then quantize to the pixel grid each frame so motion reads at an 8-12 fps pixel animation feel even though the loop runs at 60fps.
+캐릭터
+- 채운 사각형과 픽셀 줄로 약 24×32 논리 픽셀의 마법사를 절차적으로 그린다. 휘어진 뾰족 모자, 긴 수염, 진한 외곽선이 있는 두 가지 색조의 로브, 끝에 보석이 달린 지팡이를 포함한다.
+- 지팡이 각도, 팔 높이, 고개 기울기, 로브 흔들림을 매개변수로 만든다. 매개변수는 부드럽게 움직이되 프레임마다 픽셀 격자에 맞춰 양자화한다. 반복 루프가 60fps여도 8~12fps 픽셀 애니메이션처럼 보이게 한다.
 
-ANIMATION
-- Looping state machine: IDLE (2-frame bob, beard sway) -> CHARGE (staff raises, gem flickers, sparks spiral inward) -> CAST (bright burst, projectile fires across the scene, 1-2 pixel screen shake) -> RECOVER (settle back). Ease pose parameters between keyframes.
-- Pooled allocation-free particle system: preallocate and reuse. Sparks orbit the gem during CHARGE, explode outward on CAST, each particle stepping its palette index from white to magic color to dark before despawn. Snap particle positions to the grid when drawing.
-- Fixed 60hz timestep update with rAF rendering. Zero object allocation inside the loop.
+애니메이션
+- 반복 상태 기계: 대기(2프레임 상하 움직임과 수염 흔들림) → 충전(지팡이를 들고 보석이 깜박이며 불꽃이 안쪽으로 나선 이동) → 시전(밝은 폭발과 화면을 가로지르는 발사체, 1~2픽셀 화면 흔들림) → 회복(원래 자세로 돌아옴). 핵심 자세 사이 매개변수를 부드럽게 보간한다.
+- 할당 없는 재사용 입자 풀을 미리 만든다. 충전 중 불꽃은 보석을 돌고, 시전 중 바깥으로 퍼진다. 입자는 흰색에서 마법 색, 어두운 색 순으로 팔레트 인덱스를 바꾼 뒤 사라진다. 그릴 때 위치를 픽셀 격자에 맞춘다.
+- 고정 60Hz 시간 간격으로 갱신하고 requestAnimationFrame으로 렌더링한다. 반복 루프 안에서는 객체를 할당하지 않는다.
 
-SCENE
-- Minimal background: dark sky, a few twinkling 1px stars, moon, stone floor line. Character silhouette must read clearly.
-- Subtle 1px rim light on the wizard from the gem, brightening during CHARGE and CAST.
+장면
+- 어두운 하늘, 반짝이는 1픽셀 별 몇 개, 달, 돌바닥 선만 있는 간결한 배경. 캐릭터의 실루엣이 분명해야 한다.
+- 보석에서 마법사 쪽으로 은은한 1픽셀 윤곽광을 비추고 충전과 시전 때 밝게 한다.
 
-QUALITY BAR
-- Crisp pixels at any window size, seamless loop, stable 60fps, readable silhouette. Should look like a polished 16-bit sprite animation, not vector shapes scaled down.
+품질 기준
+- 창 크기에 관계없이 선명한 픽셀, 끊기지 않는 반복, 안정적인 60fps, 알아보기 쉬운 실루엣. 확대된 벡터 도형이 아니라 완성도 높은 16비트 스프라이트 애니메이션처럼 보여야 한다.
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

@@ -1,23 +1,25 @@
-# 30 秒企业讲解片模板
+# 30초 기업 설명 영상 템플릿
 
-- **作者**：Alex Prompter (@alex_prompter)
-- **原帖 / 来源**：https://x.com/alex_prompter/status/2103499977632997524
-- **分组**：2.2 带结构的讲解与营销片模板
+- **작성자:** Alex Prompter (@alex_prompter)
+- **원문 출처:** https://x.com/alex_prompter/status/2103499977632997524
+- **유형:** 구조화 템플릿
 
-## 说明
+## 사례 설명
 
-作者建议：Claude 会在对话里直接播放，录屏即得视频；之后一次只提一条修改意见，例如“慢一点”“更有活力”“加一个讲价格的场景”。
+저자는 대화에서 재생한 화면을 녹화하고, 이후 한 번에 한 가지씩 수정하도록 권한다.
 
-## 提示词（提示词原文）
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
-Adopt the role of an expert motion designer. Build a 30-second animated explainer for my business as a single HTML page. 5 scenes. The customer's problem, what I do, how it works in 3 steps, one proof point, and my name at the end. Bold text, smooth transitions, my brand colours. My business [DESCRIBE WHAT YOU SELL, WHO IT'S FOR AND YOUR COLOURS]
+모션 디자이너 전문가의 역할을 맡아 줘. 내 사업을 설명하는 30초 애니메이션을 단일 HTML 페이지로 만들어 줘. 장면은 5개다. 고객의 문제, 내가 제공하는 것, 3단계 작동 방식, 신뢰할 만한 근거 하나, 마지막으로 내 이름을 보여 줘. 굵은 글자, 부드러운 전환, 내 브랜드 색상을 사용해 줘. 내 사업: [판매하는 것, 대상 고객, 브랜드 색상을 설명]
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

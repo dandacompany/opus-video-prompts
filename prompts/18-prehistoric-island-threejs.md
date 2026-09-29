@@ -1,66 +1,67 @@
-# 交互式史前岛屿（Three.js）
+# 상호작용하는 선사 시대 섬
 
-- **作者**：Vib3Coded
-- **原帖 / 来源**：https://x.com/vib3coded/status/2102450842070569099
-- **分组**：2.5 像素 / 三维场景规格型提示词
+- **작성자:** Vib3Coded
+- **원문 출처:** https://x.com/vib3coded/status/2102450842070569099
+- **유형:** 상세 사양
 
-## 说明
+## 사례 설명
 
-原本用于和其他模型横向对比，也可以作为三维场景提示词的写法参考。
+다른 모델과 비교하기 위해 작성된 사양이며 3D 장면 프롬프트의 예시로도 활용할 수 있다.
 
-## 提示词（提示词原文）
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
-Create a beautiful, highly detailed, fully interactive 3D prehistoric island using Three.js and WebGL. Deliver everything in a single standalone HTML file that opens directly in Chrome. Embed assets wherever possible.
+Three.js와 WebGL로 아름답고 세부 묘사가 풍부하며 완전히 상호작용할 수 있는 3D 선사 시대 섬을 만들어 줘. Chrome에서 바로 열 수 있는 단일 HTML 파일로 제공하고 가능한 자산은 파일 안에 포함해 줘.
 
-VISUAL DIRECTION
-Build a large, rounded island surrounded by an ocean with a transparent underwater cross-section. The result should feel like a premium miniature world: lush vegetation, expressive dinosaurs, rich materials, atmospheric lighting, and polished animation. Use a cohesive, stylized art direction rather than basic geometric shapes.
-ISLAND
-Create varied terrain with beaches, rocky cliffs, dense prehistoric forests, giant ferns, a waterfall, a freshwater pond, and a volcano. Add a small research station, wooden walkways, observation platforms, supply crates, and dinosaur nests. Make the island spacious enough for dinosaurs to move naturally between distinct areas.
+시각적 방향
+투명한 수중 단면이 보이는 바다로 둘러싸인 크고 둥근 섬을 만들어 줘. 무성한 식물, 생동감 있는 공룡, 풍부한 재질, 분위기 있는 조명, 매끄러운 애니메이션으로 고급 미니어처 세계처럼 보여야 해. 단순한 기하학적 모양 대신 일관된 스타일을 적용해 줘.
 
-WATER CROSS-SECTION
-The water must form a deep, rounded volume around the island, with clearly visible underwater scenery through its sides. Include a textured seabed, rocks, aquatic plants, fish, bubbles, and a green marine reptile swimming beneath the surface. Do not place ordinary land dinosaurs underwater, and do not add a submarine.
-Use animated waves, Fresnel reflections, underwater light patterns, shoreline foam, and splashes. Avoid transparency sorting artifacts and visible gaps between the island and water.
+섬
+해변, 바위 절벽, 울창한 선사 시대 숲, 거대한 양치식물, 폭포, 민물 연못, 화산을 넣어 다양한 지형을 만들어 줘. 작은 연구 기지, 나무 산책로, 관찰대, 보급 상자, 공룡 둥지도 추가해 줘. 공룡이 서로 다른 구역을 자연스럽게 오갈 만큼 넓게 만들어 줘.
 
-DINOSAURS
-Include several distinct species, such as a long-necked sauropod, Triceratops, Stegosaurus, a large theropod, and smaller herd animals. Add pterosaurs circling overhead.
-Give every species recognizable anatomy, shaped bodies, articulated limbs, detailed heads, tails, and appropriate skin patterns. Avoid assembling the finished dinosaurs from obvious boxes or disconnected spheres.
+물의 단면
+섬 주변 바다는 깊고 둥근 부피감을 가져야 하며 측면을 통해 수중 풍경이 또렷이 보여야 해. 질감 있는 해저, 바위, 수생 식물, 물고기, 기포, 수면 아래를 헤엄치는 초록색 해양 파충류를 넣어 줘. 육지 공룡을 물속에 넣거나 잠수함을 추가하지 마.
+애니메이션 파도, 프레넬 반사, 수중 빛무늬, 해안 거품, 물보라를 넣어 줘. 투명도 정렬 오류와 섬과 바다 사이의 틈이 보이지 않게 해 줘.
 
-NATURAL ANIMATION
-Use hierarchical skeletons with correctly positioned joints. Walking must have distinct stance and swing phases: feet stay planted during contact and lift cleanly during each step. Match stride length to movement speed.
+공룡
+목이 긴 용각류, 트리케라톱스, 스테고사우루스, 큰 수각류, 작은 무리 동물 등 구별되는 여러 종을 포함해 줘. 하늘에는 익룡이 선회하게 해 줘.
+각 종의 해부학적 특징이 드러나도록 몸체, 관절이 있는 팔다리, 세부 묘사가 있는 머리와 꼬리, 적절한 피부 무늬를 만들어 줘. 뻔한 상자나 분리된 구체를 이어 붙인 완성형 공룡은 피해야 해.
 
-Use terrain sampling and inverse kinematics to keep feet on the ground. Add weight shifts, subtle body movement, balanced tail motion, head turns, and breathing. Dinosaurs must never float, slide, intersect the ground, or walk through buildings, rocks, trees, or each other.
-Use obstacle avoidance and safe paths. Different species should have different movement speeds, gait patterns, and behaviors. Marine animals must face their direction of travel.
+자연스러운 애니메이션
+관절 위치가 정확한 계층형 골격을 사용해 줘. 걸음은 지지 단계와 다리를 들어 옮기는 단계를 구분해야 해. 땅을 딛는 동안 발은 고정되고 매 걸음마다 분명히 들려야 해. 보폭은 이동 속도에 맞춰 줘.
+지형 높이 샘플링과 역운동학으로 발을 땅에 붙여 줘. 체중 이동, 미세한 몸 움직임, 균형 잡힌 꼬리 움직임, 고개 돌리기, 호흡도 넣어 줘. 공룡이 뜨거나 미끄러지거나 땅을 뚫거나 건물, 바위, 나무, 다른 공룡을 통과하면 안 돼.
+장애물을 피하고 안전한 경로로 움직여 줘. 종마다 이동 속도, 걸음걸이, 행동이 달라야 해. 해양 동물은 이동 방향을 바라봐야 해.
 
-INTERACTION
-Allow users to:
+상호작용
+사용자가 다음 작업을 할 수 있게 해 줘.
+- 카메라를 자유롭게 돌리고 확대하며 수중 단면을 관찰한다.
+- 공룡을 선택하고 부드럽게 움직이는 카메라로 따라간다.
+- 적절한 곳에 먹이를 놓고 주변 공룡이 다가와 먹는 모습을 본다.
+- 마시기, 쉬기, 울기, 무리 이동을 실행한다.
+- 둥지를 탐색하고 새끼가 부화하는 모습을 본다.
+- 해양 파충류가 수면으로 올라오며 물보라를 일으키게 한다.
+- 낮, 석양, 밤을 전환한다.
+- 비, 바람, 화산 활동을 조절한다.
+- 시뮬레이션을 일시정지하고 장면을 초기화한다.
+모든 조작에 분명하고 눈에 보이는 반응을 제공해 줘. 상호작용을 반복할 수 있어야 하며 애니메이션이 겹쳐 캐릭터 자세가 망가지면 안 돼.
 
-Rotate the camera freely, zoom, and inspect the underwater cross-section.
-Select a dinosaur and follow it with a smoothly moving camera.
+분위기와 오디오
+흔들리는 나뭇잎, 흘러가는 구름, 새, 곤충, 빗방울, 밤에 켜지는 연구 기지의 따뜻한 조명을 넣어 줘. 잔잔한 배경 음악과 환경음을 추가하고 실제로 작동하는 음악 전환 버튼과 음량 슬라이더를 제공해 줘. 사용자가 상호작용한 뒤에만 오디오를 시작해 줘.
 
-Place food in suitable locations and watch nearby dinosaurs approach and eat.
+인터페이스
+한국어 레이블을 쓰는 간결하고 세련된 인터페이스를 만들어 줘. 큰 패널이 섬을 가리지 않도록 장면을 중심에 두고 데스크톱과 모바일에 반응하도록 해 줘.
 
-Trigger drinking, resting, calling, and herd movement.
-
-Explore nests and watch a hatchling emerge.
-Trigger a marine reptile surfacing with a splash.
-Switch between daylight, sunset, and night.
-Adjust rain, wind, and volcanic activity.
-Pause the simulation and reset the scene.
-Make every control produce a clear, visible response. Keep interactions repeatable and prevent overlapping animations from breaking character poses.
-ATMOSPHERE AND AUDIO
-Add moving foliage, drifting clouds, birds, insects, rain particles, and warm research-station lights at night. Include quiet atmospheric music and environmental sounds with a working music toggle and volume slider. Start audio only after user interaction.
-INTERFACE
-Use a compact, elegant interface with English labels. Keep the scene dominant and avoid large panels covering the island. Make the layout responsive for desktop and mobile.
-TECHNICAL QUALITY
-Use instancing for repeated vegetation and props, efficient geometry, appropriate shadows, and restrained post-processing. Balance visual richness with smooth real-time performance.
-Build a complete scene, not a mockup. Test the final HTML directly in a desktop browser, inspect screenshots and the console, exercise every interaction, and fix loading errors, floating dinosaurs, foot sliding, broken collisions, water artifacts, and camera problems before delivery.
+기술적 품질
+반복되는 식물과 소품에는 인스턴싱을 쓰고 효율적인 지오메트리, 적절한 그림자, 절제된 후처리를 적용해 줘. 시각적 풍부함과 실시간 성능 사이의 균형을 맞춰 줘.
+모형이 아닌 완성된 장면을 만들어 줘. 최종 HTML을 데스크톱 브라우저에서 직접 열고 스크린샷과 콘솔을 확인하며 모든 상호작용을 시험해 줘. 전달 전 로딩 오류, 공중에 뜬 공룡, 발 미끄러짐, 충돌 오류, 물 표현 문제, 카메라 문제를 고쳐 줘.
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

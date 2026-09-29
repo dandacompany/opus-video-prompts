@@ -1,49 +1,55 @@
-# UI 形态变换循环（1440×1440）
+# UI 변형 무한 반복 영상
 
-- **作者**：zero (@twoclipping)
-- **原帖 / 来源**：https://x.com/twoclipping/status/2103273003555402193
-- **分组**：2.4 专业级 Motion Design 模板（@zero）
+- **작성자:** zero (@twoclipping)
+- **원문 출처:** https://x.com/twoclipping/status/2103273003555402193
+- **유형:** 전문 템플릿
 
-## 提示词（提示词原文）
+## 사례 설명
+
+1440×1440 정사각 영상. 입력값과 박자표를 먼저 확정한다.
+
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
 <inputs>
-Ask me for: 8 to 12 UI states I want the shape to become (e.g. button, loader, player, slider, toggle, tabs, chart, command palette, toast), pure black and white or one accent color, and a royalty-free song around 120 BPM (e.g. Mixkit, free for commercial use).
+다음 입력을 요청해 줘: 하나의 도형이 변할 UI 상태 8~12개(예: 버튼, 로더, 플레이어, 슬라이더, 토글, 탭, 차트, 명령 팔레트, 토스트), 순수 흑백 또는 강조색 한 가지, 120 BPM 안팎의 저작권료 없는 음악(예: 상업적 이용이 가능한 Mixkit 음악).
 </inputs>
 
 <direction>
-Dribbble-level UI motion. One shape, never cut: every state is the same element morphing its size, radius and color while its content swaps with a short blur. A cursor drives every change with real clicks and drags. Light warm-gray canvas, black and white components, one clean UI font (Geist). Springs everywhere, a tiny overshoot at most. The camera zooms so each state fills the frame. The last frame is the first frame, so it loops.
-Banned: bouncy easing, particle bursts, glows, gradients on UI chrome, mismatched icon strokes, dead time, anything that looks like a template.
+Dribbble 수준의 UI 모션. 하나의 도형을 컷 없이 계속 변형한다. 각 상태는 같은 요소의 크기, 모서리 반경, 색을 바꾸고 내용은 짧은 흐림 효과와 함께 교체한다. 커서는 실제 클릭과 드래그로 모든 변화를 일으킨다. 밝고 따뜻한 회색 배경, 흑백 컴포넌트, 깔끔한 UI 글꼴 하나(Geist)를 사용한다. 곳곳에 스프링 동작을 넣되 초과 움직임은 아주 작게 한다. 각 상태가 화면을 채우도록 카메라를 확대한다. 마지막 프레임을 첫 프레임과 같게 만들어 반복한다.
+금지: 과도하게 튀는 가속, 입자 폭발, 발광, UI 장식의 그러데이션, 제각각인 아이콘 선 굵기, 변화 없는 구간, 템플릿처럼 보이는 요소.
 </direction>
 
 <structure>
-120 BPM, 7 bars, something happens on every beat.
-Button → loader → check → dynamic island → music player with a play/pause morph → scrub the progress bar → it becomes a volume slider that stretches when dragged past max → a toggle flips on the beat → the knob becomes a liquid tab indicator → the tabs open into a chart that draws itself, with a tooltip on hover → it collapses into ⌘K → type to filter → enter → toast → back to the button.
+120 BPM, 7마디. 매 박자마다 사건이 일어난다.
+버튼 → 로더 → 완료 표시 → 다이내믹 아일랜드 → 재생/일시정지 모양이 변하는 음악 플레이어 → 진행 막대 탐색 → 끝을 넘어 드래그하면 늘어나는 음량 슬라이더 → 박자에 맞춰 켜지는 토글 → 액체처럼 움직이는 탭 표시기로 바뀌는 손잡이 → 스스로 그려지는 차트로 펼쳐지는 탭과 마우스 오버 툴팁 → ⌘K로 접힘 → 필터 검색어 입력 → Enter → 토스트 → 처음 버튼으로 복귀.
 </structure>
 
 <build>
-1. One HTML file, square 1440x1440. Every style is computed from time inside seek(t): no CSS transitions, no timers, no state carried between frames.
-2. Springs are closed-form step responses. A value that changes target many times is the sum of one spring per change, so it stays a pure function of time.
-3. The tab indicator's two edges ride different springs, so the leading edge stretches ahead of the trailing one. Same trick for the toggle knob.
-4. Drags are direct manipulation: while the cursor is held, the value is computed from its position. On release it springs back from wherever it was.
-5. Analyze the song with numpy for the beat grid and start on a downbeat. Place every UI sound by its measured peak.
-6. Render with Playwright: 4 subframes per frame, blended with ffmpeg tmix for motion blur at 60fps.
-7. Render one frame per beat before the full render. Fix anything off the grid, cramped or hard to read.
+1. 1440×1440 단일 HTML 파일. 모든 스타일을 seek(t) 함수의 시간값으로 계산한다. CSS 전환, 타이머, 프레임 간 상태 저장은 사용하지 않는다.
+2. 스프링은 닫힌 형태의 계단 응답으로 계산한다. 목표값이 여러 번 바뀌면 변화마다 스프링 하나를 더해 시간의 순수 함수로 유지한다.
+3. 탭 표시기의 양쪽 끝에 서로 다른 스프링을 적용해 앞쪽 끝이 뒤쪽보다 먼저 늘어나게 한다. 토글 손잡이에도 같은 기법을 사용한다.
+4. 드래그는 직접 조작으로 구현한다. 커서를 누르고 있는 동안 위치에서 값을 계산하고, 놓으면 그 지점에서 스프링으로 되돌린다.
+5. numpy로 음악을 분석해 박자표를 만들고 강박에서 시작한다. UI 효과음은 측정한 소리의 정점에 맞춰 배치한다.
+6. Playwright로 프레임마다 하위 프레임 4개를 렌더링하고 FFmpeg tmix로 혼합해 60fps 모션 블러를 만든다.
+7. 전체 렌더링 전에 박자마다 한 프레임씩 출력해 박자에서 벗어나거나 비좁거나 읽기 어려운 부분을 수정한다.
 </build>
 
 <gotchas>
-Never put will-change on anything the camera scales or the text renders blurry. Text that swaps inside a morphing container needs its own enter and exit timing or it overlaps. Make the last frame identical to the first, cursor position and speed included, or the loop stutters.
+카메라가 확대하는 요소에 will-change를 설정하지 마라. 글자가 흐려진다. 변형되는 컨테이너 안의 글자를 바꿀 때는 등장과 퇴장 시점을 따로 잡아 겹침을 막아라. 반복 구간이 끊기지 않도록 커서의 위치와 속도까지 마지막 프레임을 첫 프레임과 같게 만들어라.
 </gotchas>
 
 <start>
-Ask me for the inputs, then show me the state list on the beat grid before you write any code.
+코드를 작성하기 전에 입력값을 물어보고 박자표 위에 상태 목록을 보여 줘.
 </start>
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.

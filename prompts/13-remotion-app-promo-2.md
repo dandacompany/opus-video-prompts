@@ -1,19 +1,25 @@
-# App 宣传片（Remotion，第 2 支）
+# Remotion 앱 홍보 영상 2
 
-- **作者**：Danny Stuart
-- **原帖 / 来源**：https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video
-- **分组**：2.3 SaaS/产品宣传片
+- **작성자:** Danny Stuart
+- **원문 출처:** https://dannystuart.substack.com/p/claude-code-opus-remotion-agentic-promo-video
+- **유형:** Remotion
 
-## 提示词（提示词原文（博客中有省略号））
+## 사례 설명
+
+이전 Twig 홍보 영상의 완성도를 목표로 한 두 번째 요청이다. 이 프롬프트는 공개된 발췌본이므로 빠진 내용을 임의로 복원하지 않았다.
+
+## 한국어 프롬프트
+
+아래 내용은 원문을 한국어로 옮기고 필요할 때 출력 언어를 현지화한 것이다. 정확한 원문은 위 출처를 확인한다.
 
 ```text
-I want to create a similar promo video to the level of quality that we created the twig promo video... Glass Materials which is part of the Vanta Supply family... It must be 15 seconds long. Use dramatic cuts and kinetic typography... dark style with grainey gradients... Storyboard the video and plan carefully before coding anything.
+앞서 만든 Twig 홍보 영상과 비슷한 수준의 영상을 만들고 싶어. […] Vanta Supply 계열 제품인 Glass Materials를 홍보해 줘. […] 길이는 15초로 해 줘. 강렬한 장면 전환과 역동적인 타이포그래피, 입자가 느껴지는 그러데이션이 있는 어두운 스타일을 사용해 줘. […] 코드를 작성하기 전에 스토리보드를 만들고 신중하게 계획해 줘.
 ```
 
-## 怎么测
+## 사용 방법
 
-1. 在 Claude Code 里新建一个空目录，模型选 Opus 5.5，effort 建议 high 或更高。
-2. 粘贴上面的提示词，替换方括号或 `<inputs>` 里要你填的内容。
-3. 本机准备好 Node、Chrome 和 FFmpeg，让它自己渲染成 MP4。只在网页对话里跑的话，可以预览 HTML 后录屏。
+1. Claude Code에서 빈 폴더를 만들고 Opus 5.5를 선택한다. 추론 강도는 high 이상을 권한다.
+2. 위 프롬프트를 붙여넣고 대괄호로 표시한 입력값이나 `<inputs>` 항목이 있다면 채운다.
+3. MP4로 렌더링하려면 Node.js, Chrome, FFmpeg를 준비한다. 웹 미리보기를 녹화할 수도 있다.
 
-> 提示词版权归原作者所有，转载请保留作者与原帖链接。
+> 프롬프트와 영상의 저작권은 원저작자에게 있다. 재사용할 때 작성자와 원문 링크를 함께 표기한다.
