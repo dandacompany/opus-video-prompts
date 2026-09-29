@@ -121,17 +121,9 @@
   },
   {
     "category": "과학·지식 설명",
-    "title": "중국 5천 년 역사 요약",
-    "author": "WY",
-    "how": "한 문장으로 선화 애니메이션과 음악 제작",
-    "cost": "—",
-    "url": "https://x.com/akokoi1/status/2102583898865873225"
-  },
-  {
-    "category": "과학·지식 설명",
     "title": "대기 대순환 설명 영상",
     "author": "WY",
-    "how": "선화, TTS 내레이션, 중국어·영어 자막",
+    "how": "선화, TTS 내레이션, 이중 자막",
     "cost": "26분, 토큰 사용량 적음",
     "url": "https://x.com/akokoi1/status/2102606609574941028"
   },

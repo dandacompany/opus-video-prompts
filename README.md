@@ -4,7 +4,7 @@
 
 **Claude Opus 5.5로 코드를 작성해 영상을 만드는 공개 사례와 한국어 프롬프트 모음**
 
-프롬프트 18개 · 공개 사례 54건 · 제작 방식 9가지
+프롬프트 17개 · 공개 사례 53건 · 제작 방식 9가지
 
 [빠른 시작](#빠른-시작) · [프롬프트 목록](#프롬프트-목록) · [사례 목록](#사례-목록) · [작성 요령](#프롬프트-작성-요령) · [출처](#출처)
 
@@ -33,18 +33,17 @@ Opus 5.5는 영상 파일을 직접 출력하는 모델이 아니다. HTML Canva
 
 ## 프롬프트 목록
 
-| 번호 | 프롬프트 | 작성자 | 유형 | 파일 |
+| 자료 ID | 프롬프트 | 작성자 | 유형 | 파일 |
 |---:|---|---|---|---|
 | 01 | 추론 스타트업 출시 영상 | Deedy (@deedydas) | 한 문장 | [열기](prompts/01-inference-startup-launch.md) |
 | 02 | 15초 모션 디자인 쇼릴 | Stephan Livera | 한 문장 | [열기](prompts/02-motion-showreel-15s.md) |
-| 03 | 중국 5천 년 역사 요약: 선화 애니메이션 | WY (@akokoi1) | 한 문장 | [열기](prompts/03-china-5000-years-lineart.md) |
 | 04 | Opus 5 광고: 애플 《1984》 오마주 | 1LittleCoder (YouMind 수록) | 한 문장 | [열기](prompts/04-opus-1984-ad.md) |
 | 05 | Transformer를 설명하는 JavaScript 영상 | 바오위 (YouMind 수록) | 한 문장 | [열기](prompts/05-transformer-explainer-js.md) |
-| 06 | 방에서 쿼크까지 확대하는 영상 | Taelin (YouMind의 중국어 요약을 바탕으로 번역) | 한 문장 | [열기](prompts/06-room-to-quarks-zoom.md) |
+| 06 | 방에서 쿼크까지 확대하는 영상 | Taelin (YouMind 요약을 바탕으로 번역) | 한 문장 | [열기](prompts/06-room-to-quarks-zoom.md) |
 | 07 | 30초 기업 설명 영상 템플릿 | Alex Prompter (@alex_prompter) | 구조화 템플릿 | [열기](prompts/07-business-explainer-30s.md) |
 | 08 | 네그로니 칵테일 레시피 애니메이션 | Rory Flynn (@Ror_Fly) | 참고 이미지 | [열기](prompts/08-negroni-recipe-explainer.md) |
-| 09 | 대기 대순환 설명: TTS와 이중 자막 | WY (@akokoi1) | 중국어 원문 번역 | [열기](prompts/09-atmospheric-circulation-tts.md) |
-| 10 | 실사 설명 영상을 선화 애니메이션으로 변환 | Axton (@AxtonLiu) | 중국어 원문 번역 | [열기](prompts/10-talking-head-to-lineart.md) |
+| 09 | 대기 대순환 설명: TTS와 이중 자막 | WY (@akokoi1) | 번역 프롬프트 | [열기](prompts/09-atmospheric-circulation-tts.md) |
+| 10 | 실사 설명 영상을 선화 애니메이션으로 변환 | Axton (@AxtonLiu) | 번역 프롬프트 | [열기](prompts/10-talking-head-to-lineart.md) |
 | 11 | 아우스터리츠 전투 역사 영화 | Winter (@WinterArc2125) | 장문 프롬프트 | [열기](prompts/11-austerlitz-film.md) |
 | 12 | Remotion 앱 홍보 영상 1 | Danny Stuart | Remotion | [열기](prompts/12-remotion-app-promo-1.md) |
 | 13 | Remotion 앱 홍보 영상 2 | Danny Stuart | Remotion | [열기](prompts/13-remotion-app-promo-2.md) |
@@ -82,19 +81,6 @@ Opus 5.5는 영상 파일을 직접 출력하는 모델이 아니다. HTML Canva
 
 ```text
 15초짜리 역동적인 모션 그래픽 영상을 만들어 줘. 뛰어난 모션 디자이너의 이력서용 쇼릴처럼 실력을 마음껏 보여 줘.
-```
-
-</details>
-
-### 03. 중국 5천 년 역사 요약: 선화 애니메이션
-
-[원문](https://x.com/akokoi1/status/2102584165220962502) · [설명과 사용 방법](prompts/03-china-5000-years-lineart.md)
-
-<details>
-<summary>한국어 프롬프트 펼치기</summary>
-
-```text
-중국 5천 년 역사를 빠르게 되짚는 애니메이션을 만들어 줘. 가볍고 재미있는 선화 스타일로 그리고, 어울리는 음악을 넣어 몰입감 있게 완성해 줘.
 ```
 
 </details>
@@ -435,14 +421,14 @@ Three.js와 WebGL로 아름답고 세부 묘사가 풍부하며 완전히 상호
 | Remotion으로 영상 구성 | React, TypeScript, SVG, Canvas, Remotion Studio | AI 발전사, 앱 홍보 영상 |
 | HyperFrames로 HTML 영상 렌더링 | HyperFrames, 단일 HTML, Python 음악 합성 | Shotbase, Small Print |
 | Manim으로 수학·논문 설명 | Manim, Kokoro-82M TTS, FFmpeg | 연구 논문 애니메이션 설명 |
-| Python으로 선화 프레임 그리기 | Python, Pillow, TTS, FFmpeg | 중국 5천 년 역사, 대기 대순환, 실사 설명 영상 변환 |
+| Python으로 선화 프레임 그리기 | Python, Pillow, TTS, FFmpeg | 대기 대순환, 실사 설명 영상 변환 |
 | Three.js와 WebGL로 3D 장면 만들기 | Three.js, 절차 생성 모델·재질·음향 | 아우스터리츠 전투, 선사 시대 섬, 안티키테라 기계 |
 | 전문 영상 도구 조작 | After Effects, Blender, Higgsfield, Runway MCP, Seedance API | 출시 광고, Blender 장면, 다큐멘터리 |
 | 기존 영상 편집 | browser-use, video-use, FFmpeg | 원본 영상 13개를 엮은 출시 영상 |
 
 ## 사례 목록
 
-공개 사례 54건이다. `—`는 원 게시물에 정보가 없다는 뜻이다. 기계가 읽을 수 있는 데이터는 [cases.json](cases.json)에 있다.
+공개 사례 53건이다. `—`는 원 게시물에 정보가 없다는 뜻이다. 기계가 읽을 수 있는 데이터는 [cases.json](cases.json)에 있다.
 
 | 분류 | 사례 | 작성자 | 제작 방식·특징 | 시간·비용 |
 |---|---|---|---|---|
@@ -461,8 +447,7 @@ Three.js와 WebGL로 아름답고 세부 묘사가 풍부하며 완전히 상호
 | 과학·지식 설명 | [상호작용하는 카메라 렌즈 실험실](https://x.com/RyanSael/status/2102591147927654847) | Ryan Sael | 한 번에 완성된 상호작용 렌즈 시뮬레이션 | 1시간 26분, API 비용 25.66달러 |
 | 과학·지식 설명 | [연구 논문 애니메이션 설명](https://x.com/deedydas/status/2103141339651350646) | Deedy | Claude가 Manim, Kokoro-82M, FFmpeg를 선택해 웹 대화에서 완성 | — |
 | 과학·지식 설명 | [AI 발전사 3분 영상](https://x.com/kimmonismus/status/2102844654169575547) | Chubby (kimmonismus) | React/TypeScript 약 7,400줄, Remotion, SVG/Canvas, 오픈소스 TTS, Python 음악 | 약 1시간, 주간 한도의 7% |
-| 과학·지식 설명 | [중국 5천 년 역사 요약](https://x.com/akokoi1/status/2102583898865873225) | WY | 한 문장으로 선화 애니메이션과 음악 제작 | — |
-| 과학·지식 설명 | [대기 대순환 설명 영상](https://x.com/akokoi1/status/2102606609574941028) | WY | 선화, TTS 내레이션, 중국어·영어 자막 | 26분, 토큰 사용량 적음 |
+| 과학·지식 설명 | [대기 대순환 설명 영상](https://x.com/akokoi1/status/2102606609574941028) | WY | 선화, TTS 내레이션, 이중 자막 | 26분, 토큰 사용량 적음 |
 | 과학·지식 설명 | [물리 경시대회 어려운 문제 설명](https://x.com/akokoi1/status/2102680453912449223) | WY | 대기 대순환 프롬프트의 주제를 구체적인 문제로 교체 | — |
 | 과학·지식 설명 | [네그로니 칵테일 레시피 애니메이션](https://x.com/Ror_Fly/status/2102853258582880547) | Rory Flynn | 참고 이미지 한 장으로 30초 HTML 애니메이션 제작 | — |
 | 과학·지식 설명 | [46초 특수상대성이론 설명: 일본어](https://x.com/masahirochaen/status/2102722719502704941) | チャエン | 참고 게시물과 짧은 지시로 Canvas 1,395프레임 제작, 음악과 효과음도 JavaScript로 생성 | 렌더링 약 2분 |
